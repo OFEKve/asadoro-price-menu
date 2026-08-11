@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ASADORO Lead Quiz – חוויית בשרים לאירועים</title>
+  <meta name="description" content="שאלון לידים אינטראקטיבי ומעוצב לקבלת הצעת מחיר לאירוע ב-ASADORO." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070503;
+      --panel: #110f0c;
+      --surface: rgba(26, 21, 16, 0.95);
+      --surface-strong: #1f1b17;
+      --text: #f5f1ec;
+      --muted: #b4a992;
+      --accent: #e1a952;
+      --accent-soft: rgba(225, 169, 82, 0.18);
+      --gold: #c7954f;
+      --fire: #ff6a24;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 28px 70px rgba(0, 0, 0, 0.35);
+      --radius: 24px;
+      --radius-sm: 16px;
+      font-family: "Frank Ruhl Libre", "Georgia", serif;
+    }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; margin: 0; background: radial-gradient(circle at top, rgba(255,118,43,0.12), transparent 25%), linear-gradient(180deg, #120f0b 0%, #060503 100%); color: var(--text); }
+    body { overflow-x: hidden; }
+    button, input, select, textarea { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 85% 10%, rgba(255, 138, 48, 0.18), transparent 18%), linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent 12%, rgba(255, 111, 38, 0.06) 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-shell {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 0 18px;
+      z-index: 1;
+      overflow-x: hidden;
+    }
+    .panel {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      background: radial-gradient(circle at top left, rgba(255,146,53,0.08), transparent 20%), rgba(17, 14, 10, 0.98);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 34px;
+      box-shadow: 0 32px 92px rgba(0, 0, 0, 0.55);
+      overflow: hidden;
+      backdrop-filter: blur(28px);
+      max-width: 100%;
+    }
+    .hero {
+      padding: 34px 28px 30px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(7,5,3,0.88)),
+                  url('https://asadoro.co.il/media/gallery/1.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: multiply;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .eyebrow::before {
+      content: "🔥";
+      display: inline-block;
+      transform: scale(1.1);
+    }
+    .hero-title {
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      line-height: 1.08;
+      margin: 0 0 18px;
+      letter-spacing: -0.04em;
+      max-width: 100%;
+      text-shadow: 0 18px 30px rgba(0,0,0,0.35);
+    }
+    .hero-text {
+      color: rgba(255,255,255,0.88);
+      line-height: 1.75;
+      max-width: 34rem;
+      margin-bottom: 26px;
+      text-shadow: 0 10px 22px rgba(0,0,0,0.28);
+    }
+    .hero-logo {
+      width: 104px;
+      height: 104px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: 0 28px 64px rgba(0,0,0,0.30);
+      margin-bottom: 20px;
+      background: rgba(255,255,255,0.06);
+    }
+    .hero-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 0 0 26px;
+    }
+    .hero-gallery img {
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 16px 44px rgba(0,0,0,0.30);
+      transform: translateZ(0);
+    }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      max-width: 360px;
+      padding: 20px 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: linear-gradient(135deg, #ff9f34, #fbdc82);
+      color: #111;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 28px 72px rgba(255,142,45,0.24);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.24);
+      box-shadow: 0 32px 84px rgba(255,142,45,0.32);
+      filter: saturate(1.08);
+    }
+    .hero-foot {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .quiz-shell { position: relative; overflow: hidden; }
+    .progress-bar {
+      width: 100%; height: 10px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 0;
+    }
+    .progress-fill {
+      width: 0%; height: 100%; background: linear-gradient(90deg, #ff8b3d, #f3d59d);
+      transition: width 0.4s ease;
+    }
+    .step-counter {
+      margin: 18px 0 0;
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .step-card {
+      padding: 36px 32px 32px;
+      background: rgba(14, 11, 8, 0.88);
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 32px 70px rgba(0,0,0,0.22);
+      margin-top: 22px;
+      min-height: 380px;
+      display: grid;
+      gap: 24px;
+      animation: fadeSlide 0.35s ease both;
+    }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .step-question {
+      font-size: clamp(1.45rem, 2vw, 2rem);
+      line-height: 1.15;
+      margin: 0;
+      max-width: 12ch;
+    }
+    .step-description {
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 45rem;
+    }
+    .step-note {
+      color: #f5d291;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-top: 10px;
+      max-width: 45rem;
+      opacity: 0.95;
+    }
+    .options-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .option-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 110px;
+      padding: 24px 26px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
+      text-align: center;
+      line-height: 1.35;
+      min-width: 0;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.10);
+      touch-action: manipulation;
+      backdrop-filter: blur(8px);
+    }
+    .option-card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.09); }
+    .option-card.active {
+      border-color: rgba(255,154,66,0.85);
+      background: linear-gradient(180deg, rgba(255,149,54,0.20), rgba(255,146,50,0.12));
+      box-shadow: 0 22px 48px rgba(255,123,42,0.16);
+    }
+    .option-card.small { min-height: 76px; font-size: 0.98rem; }
+    .option-card span { display: block; }
+    .option-note { margin-top: 10px; color: var(--muted); font-size: 0.95rem; }
+
+    .field-group { display: grid; gap: 14px; }
+    label { display: block; color: var(--muted); font-size: 0.95rem; margin-bottom: 6px; }
+    input, select { width: 100%; border-radius: 18px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.03); color: var(--text); padding: 16px 18px; outline: none; transition: border-color 0.18s ease, box-shadow 0.18s ease; }
+    input:focus, select:focus { border-color: rgba(255,133,57,0.45); box-shadow: 0 0 0 4px rgba(255,133,57,0.08); }
+    input::placeholder { color: rgba(245,241,236,0.45); }
+    .radio-grid {
+      display: grid;
+      gap: 12px;
+    }
+    .radio-tile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .radio-tile:hover { border-color: rgba(255,255,255,0.16); }
+    .radio-tile input { accent-color: var(--fire); }
+
+    .chips {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+    }
+    .chip {
+      padding: 14px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      text-align: center;
+    }
+    .chip:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.16); }
+    .chip.active { background: linear-gradient(180deg, rgba(255,133,57,0.14), rgba(255,133,57,0.06)); border-color: rgba(255,133,57,0.35); }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .btn {
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      min-height: 62px;
+      font-size: 1.06rem;
+      font-weight: 700;
+      padding: 0 30px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, filter 0.2s ease;
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, #ff9c36, #fcdc86);
+      color: #111;
+      box-shadow: 0 24px 60px rgba(255,146,56,0.22);
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: var(--text);
+      backdrop-filter: blur(10px);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.12); }
+    .btn-primary:hover { box-shadow: 0 30px 70px rgba(255,146,56,0.30); filter: saturate(1.05); }
+
+    .hint { color: var(--muted); font-size: 0.95rem; }
+    .error { color: #ff6f6f; font-size: 0.95rem; margin-top: 6px; }
+    .success-card {
+      padding: 42px 36px;
+      text-align: center;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+    }
+    .success-card h2 { font-size: clamp(2rem, 2.7vw, 2.9rem); margin: 0 0 18px; }
+    .success-card p { color: var(--muted); line-height: 1.8; margin: 0 0 24px; }
+    .success-card .btn-primary { width: 100%; max-width: 320px; }
+
+    .summary-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+      color: var(--muted);
+    }
+    .summary-item {
+      display: grid;
+      gap: 6px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .summary-item strong { color: var(--text); }
+
+    .step-hidden { display: none; }
+    @media (max-width: 920px) {
+      .panel { width: 100%; border-radius: 28px; margin: 0; }
+      .hero { padding: 30px 22px 24px; }
+      .step-card { padding: 28px 20px 24px; min-height: auto; }
+      .options-grid { grid-template-columns: 1fr; }
+      .option-card { min-height: 100px; }
+      .hero-cta { width: 100%; justify-content: center; padding: 18px 20px; }
+    }
+    @media (max-width: 720px) {
+      .page-shell { padding: 14px 10px 14px; }
+      .hero { padding: 24px 18px 20px; }
+      .hero-title { font-size: 2rem; max-width: 100%; }
+      .options-grid { grid-template-columns: 1fr; }
+      .option-card { min-height: 108px; padding: 18px 20px; font-size: 1.06rem; }
+      .step-card { padding: 22px 18px 20px; border-radius: 26px; }
+      .actions { flex-direction: column; }
+      .btn { width: 100%; justify-content: center; padding: 16px 18px; }
+      .hero-foot { font-size: 0.92rem; }
+      .progress-bar { height: 12px; }
+      .progress-fill { border-radius: 999px; }
+    }
+    @media (max-width: 520px) {
+      .page-shell { padding: 12px 8px 12px; }
+      .panel { border-radius: 24px; }
+      .hero { padding: 22px 16px 18px; }
+      .hero-title { font-size: 1.85rem; }
+      .step-card { padding: 20px 16px 20px; }
+      .field-group { gap: 12px; }
+      .input, .btn { font-size: 1rem; }
+      .option-card { min-height: 100px; padding: 18px 16px; }
+      .btn-primary, .btn-secondary { min-height: 58px; }
+      .actions { gap: 12px; }
+      .step-counter { font-size: 0.9rem; }
+      .step-question { font-size: 1.5rem; }
+    }
+    @media (max-width: 520px) {
+      .page-shell { padding: 12px 8px 12px; }
+      .panel { border-radius: 20px; }
+      .hero { padding: 22px 16px 20px; }
+      .hero-title { font-size: 1.95rem; }
+      .step-card { padding: 22px 16px 22px; }
+      .field-group { gap: 12px; }
+      .input, .btn { font-size: 1rem; }
+      .option-card { min-height: 84px; }
+      .actions { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="panel" id="quizPanel">
+      <div class="hero" id="heroScreen">
+        <div class="hero-logo"><img src="https://asadoro.co.il/media/logo.jpeg" alt="ASADORO logo" /></div>
+        <div class="eyebrow">ASADORO</div>
+        <h1 class="hero-title">מתכננים אירוע? בואו נבנה לכם את חוויית הבשרים 🔥</h1>
+        <p class="hero-text">ענו על כמה שאלות קצרות ונוכל להתאים לכם את חוויית ASADORO לאירוע שלכם.</p>
+        <div class="hero-gallery" aria-hidden="true">
+          <img src="https://asadoro.co.il/media/gallery/2.jpeg" alt="אירוע ASADORO" />
+          <img src="https://asadoro.co.il/media/gallery/9.jpeg" alt="אירוע בשרים" />
+          <img src="https://asadoro.co.il/media/gallery/11.jpeg" alt="שולחן בשר" />
+        </div>
+        <button class="hero-cta btn-primary" id="startBtn">בואו נתחיל</button>
+        <p class="hero-foot">לוקח פחות מדקה</p>
+      </div>
+      <div class="quiz-shell step-hidden" id="quizShell">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="step-counter"><span id="stepLabel">שלב 1 מתוך 7</span><span id="progressText">0%</span></div>
+        <div class="step-card" id="stepCard">
+          <div>
+            <h2 class="step-question" id="questionTitle" tabindex="-1">כמה אורחים צפויים להשתתף?</h2>
+            <p class="step-description" id="questionDescription">נשמח לבדוק את כמות המינימום לאירוע - המינימום שלנו הוא 10 סועדים.</p>
+          </div>
+          <div class="options-grid" id="optionGrid"></div>
+          <div class="step-note" id="stepNote" aria-live="polite"></div>
+          <div class="field-group" id="fieldGroup"></div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-secondary" id="backBtn" type="button">הקודם</button>
+          <button class="btn btn-primary" id="nextBtn" type="button">המשך</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const META_PIXEL_ID = 'YOUR_PIXEL_ID'; // החליפו את המזהה במזהה פיקסל אמיתי
+    const WEBHOOK_URL = 'https://example.com/webhook/asadoro-lead'; // החליפו את כתובת ה-webhook בכתובת אמיתית
+    const WHATSAPP_NUMBER = '972XXXXXXXXX'; // החליפו במספר וואטסאפ אמיתי עם קידומת בינלאומית ללא +
+    const WHATSAPP_MESSAGE = 'שלום ASADORO, רציתי לדבר על האירוע שלי';
+
+    const steps = [
+      {
+        key: 'guests',
+        title: 'כמה אורחים צפויים להשתתף?',
+        description: 'נשמח לבדוק את כמות המינימום לאירוע - המינימום שלנו הוא 10 סועדים.',
+        type: 'single',
+        options: ['10–15', '16–30', '31–50', '51+'],
+      },
+      {
+        key: 'eventType',
+        title: 'איזה אירוע אתם מתכננים?',
+        description: 'נוכל להתאים את חוויית ASADORO לסוג האירוע שלכם.',
+        type: 'single',
+        options: ['יום הולדת', 'אירוע משפחתי', 'אירוע חברה', 'חתונה / אירוע חגיגי', 'ערב חברים', 'אחר'],
+      },
+      {
+        key: 'eventDate',
+        title: 'מתי האירוע מתוכנן?',
+        description: 'בחירת תאריך עוזרת לנו להתאים תפריט ולוח זמנים מדויק.',
+        type: 'date',
+      },
+      {
+        key: 'eventArea',
+        title: 'באיזה אזור מתקיים האירוע?',
+        description: 'הזן עיר או אזור כדי שנוכל לדעת איפה תגיע חוויית ASADORO.',
+        type: 'text',
+      },
+      {
+        key: 'contact',
+        title: 'מעולה, כמעט סיימנו 🔥',
+        description: 'השאירו פרטים ונחזור אליכם כדי לבנות את האירוע המתאים עבורכם.',
+        type: 'contact',
+      }
+    ];
+
+    const leadData = {
+      startTime: new Date().toISOString(),
+      answers: {},
+      utm: parseUtmParams(),
+      events: []
+    };
+
+    loadDraft();
+
+    function loadDraft() {
+      if (!window.sessionStorage) return;
+      const saved = sessionStorage.getItem('asadoroLeadDraft');
+      if (!saved) return;
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.answers) {
+          leadData.answers = { ...leadData.answers, ...parsed.answers };
+        }
+        if (parsed.events && Array.isArray(parsed.events)) {
+          leadData.events = parsed.events;
+        }
+      } catch (err) {
+        console.warn('Failed to load saved lead draft.', err);
+      }
+    }
+
+    const startBtn = document.getElementById('startBtn');
+    const quizShell = document.getElementById('quizShell');
+    const heroScreen = document.getElementById('heroScreen');
+    const progressFill = document.getElementById('progressFill');
+    const stepLabel = document.getElementById('stepLabel');
+    const progressText = document.getElementById('progressText');
+    const questionTitle = document.getElementById('questionTitle');
+    const questionDescription = document.getElementById('questionDescription');
+    const optionGrid = document.getElementById('optionGrid');
+    const stepNote = document.getElementById('stepNote');
+    const fieldGroup = document.getElementById('fieldGroup');
+    const backBtn = document.getElementById('backBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const stepCard = document.getElementById('stepCard');
+
+    let currentStep = 0;
+    let activeSelection = null;
+    let multiSelection = new Set();
+
+    startBtn.addEventListener('click', () => {
+      heroScreen.classList.add('step-hidden');
+      quizShell.classList.remove('step-hidden');
+      currentStep = 0;
+      renderStep();
+      logEvent('quiz_started');
+    });
+
+    backBtn.addEventListener('click', () => {
+      if (currentStep === 0) return;
+      saveCurrentStep();
+      currentStep -= 1;
+      renderStep();
+      logEvent('step_back', { step: currentStep + 1 });
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const valid = validateStep();
+      if (!valid) return;
+      saveCurrentStep();
+      logEvent('step_completed', { step: currentStep + 1 });
+      if (currentStep < steps.length - 1) {
+        currentStep += 1;
+        renderStep();
+      } else {
+        submitLead();
+      }
+    });
+
+    function renderStep() {
+      const step = steps[currentStep];
+      stepLabel.textContent = `שלב ${currentStep + 1} מתוך ${steps.length}`;
+      const progress = Math.round(((currentStep + 1) / steps.length) * 100);
+      progressFill.style.width = `${progress}%`;
+      progressText.textContent = `${progress}%`;
+      questionTitle.textContent = step.title;
+      questionDescription.textContent = step.description || '';
+      backBtn.style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+      nextBtn.textContent = currentStep === steps.length - 1 ? 'קבלת הצעה לאירוע' : 'המשך';
+      fieldGroup.innerHTML = '';
+      optionGrid.innerHTML = '';
+      if (stepNote) stepNote.textContent = '';
+      activeSelection = null;
+      multiSelection = new Set();
+
+      if (step.type === 'single') {
+        optionGrid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(150px, 1fr))';
+        optionGrid.setAttribute('role', 'radiogroup');
+        optionGrid.setAttribute('aria-labelledby', 'questionTitle');
+        step.options.forEach(option => {
+          const card = createOptionCard(option);
+          card.addEventListener('click', () => selectOption(option, false));
+          optionGrid.appendChild(card);
+        });
+        if (step.key === 'guests') {
+          const exactWrapper = document.createElement('div');
+          exactWrapper.className = 'field-group';
+          const exactLabel = document.createElement('label');
+          exactLabel.textContent = 'הכניסו כמות מדויקת (אופציונלי)';
+          const exactInput = document.createElement('input');
+          exactInput.type = 'number';
+          exactInput.id = 'guestsExact';
+          exactInput.name = 'guestsExact';
+          exactInput.min = '10';
+          exactInput.placeholder = 'למשל 38';
+          exactInput.addEventListener('input', () => {
+            const value = exactInput.value.trim();
+            if (value) {
+              leadData.answers.guestsExact = value;
+            } else {
+              delete leadData.answers.guestsExact;
+            }
+          });
+          exactWrapper.appendChild(exactLabel);
+          exactWrapper.appendChild(exactInput);
+          fieldGroup.appendChild(exactWrapper);
+        }
+      } else if (step.type === 'multi') {
+        optionGrid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(180px, 1fr))';
+        optionGrid.setAttribute('role', 'group');
+        step.options.forEach(option => {
+          const card = createChip(option);
+          card.addEventListener('click', () => toggleMultiOption(option));
+          optionGrid.appendChild(card);
+        });
+      } else if (step.type === 'date') {
+        fieldGroup.appendChild(createInputField('eventDate', 'תאריך האירוע', 'date'));
+        const note = document.createElement('div'); note.className = 'option-note'; note.textContent = 'או בחרו: עדיין אין תאריך סופי';
+        const noDateButton = document.createElement('button');
+        noDateButton.type = 'button';
+        noDateButton.className = 'btn btn-secondary';
+        noDateButton.textContent = 'עדיין אין תאריך סופי';
+        noDateButton.addEventListener('click', () => {
+          leadData.answers.eventDate = 'עדיין אין תאריך סופי';
+          highlightSelection(noDateButton);
+          clearInputValue('eventDate');
+        });
+        fieldGroup.appendChild(note);
+        fieldGroup.appendChild(noDateButton);
+      } else if (step.type === 'text') {
+        fieldGroup.appendChild(createInputField(step.key, 'הקלידו עיר / יישוב', 'text', 'לדוגמה: תל אביב, ירושלים')).querySelector('input').focus();
+      } else if (step.type === 'contact') {
+        fieldGroup.appendChild(createInputField('fullName', 'שם מלא', 'text'));
+        fieldGroup.appendChild(createInputField('phone', 'מספר טלפון', 'tel', '05X-XXXXXXX'));
+        fieldGroup.appendChild(createInputField('email', 'אימייל (אופציונלי)', 'email'));
+        const legal = document.createElement('p'); legal.className = 'hint'; legal.textContent = 'נשמור את הפרטים שלכם באופן מאובטח ונשתמש רק לצורך יצירת הקשר לגבי האירוע.';
+        fieldGroup.appendChild(legal);
+      }
+
+      restoreStepAnswers();
+      questionTitle.focus();
+      trackProgress(step.key);
+    }
+
+    function createOptionCard(text) {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'option-card';
+      card.setAttribute('role', 'radio');
+      card.setAttribute('aria-checked', 'false');
+      card.innerHTML = `<span>${text}</span>`;
+      card.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          card.click();
+        }
+      });
+      return card;
+    }
+
+    function createChip(text) {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'chip';
+      chip.textContent = text;
+      return chip;
+    }
+
+    function createInputField(key, label, type, placeholder = '') {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'field-group';
+      const labelEl = document.createElement('label');
+      labelEl.textContent = label;
+      const input = document.createElement('input');
+      input.type = type;
+      input.id = key;
+      input.name = key;
+      input.placeholder = placeholder;
+      if (type === 'date') input.pattern = '\\d{4}-\\d{2}-\\d{2}';
+      wrapper.appendChild(labelEl);
+      wrapper.appendChild(input);
+      return wrapper;
+    }
+
+    function selectOption(option, preserve = false) {
+      activeSelection = option;
+      const cards = optionGrid.querySelectorAll('.option-card');
+      cards.forEach(card => {
+        const isActive = card.textContent.trim() === option;
+        card.classList.toggle('active', isActive);
+        card.setAttribute('aria-checked', String(isActive));
+      });
+      if (!preserve) leadData.answers[steps[currentStep].key] = option;
+      if (steps[currentStep].key === 'guests') {
+        updateGuestNote(option);
+      }
+      const step = steps[currentStep];
+      if (step.type === 'single' && step.key !== 'guests' && currentStep < steps.length - 1) {
+        setTimeout(() => {
+          if (currentStep < steps.length - 1) nextBtn.click();
+        }, 220);
+      }
+    }
+
+    function toggleMultiOption(option) {
+      if (multiSelection.has(option)) {
+        multiSelection.delete(option);
+      } else {
+        multiSelection.add(option);
+      }
+      const chips = optionGrid.querySelectorAll('.chip');
+      chips.forEach(chip => chip.classList.toggle('active', multiSelection.has(chip.textContent.trim())));
+      leadData.answers[steps[currentStep].key] = Array.from(multiSelection);
+    }
+
+    function clearInputValue(id) {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    }
+
+    function restoreStepAnswers() {
+      const step = steps[currentStep];
+      const value = leadData.answers[step.key];
+      if (!value) return;
+      if (step.type === 'single') {
+        const cards = optionGrid.querySelectorAll('.option-card');
+        cards.forEach(card => {
+          const isActive = card.textContent.trim() === value;
+          card.classList.toggle('active', isActive);
+          card.setAttribute('aria-checked', String(isActive));
+        });
+        activeSelection = value;
+        if (step.key === 'guests') {
+          updateGuestNote(value);
+          const exactInput = document.getElementById('guestsExact');
+          if (exactInput && leadData.answers.guestsExact) {
+            exactInput.value = leadData.answers.guestsExact;
+          }
+        }
+      }
+      if (step.type === 'multi' && Array.isArray(value)) {
+        multiSelection = new Set(value);
+        const chips = optionGrid.querySelectorAll('.chip');
+        chips.forEach(chip => chip.classList.toggle('active', multiSelection.has(chip.textContent.trim())));
+      }
+      if (step.type === 'date') {
+        if (value === 'עדיין אין תאריך סופי') return;
+        const input = document.getElementById('eventDate');
+        if (input) input.value = value;
+      }
+      if (step.type === 'text') {
+        const input = document.getElementById(step.key);
+        if (input) input.value = value;
+      }
+      if (step.type === 'contact') {
+        ['fullName', 'phone', 'email'].forEach(key => {
+          const input = document.getElementById(key);
+          if (input && leadData.answers[key]) input.value = leadData.answers[key];
+        });
+      }
+    }
+
+    function validateStep() {
+      const step = steps[currentStep];
+      const existingError = stepCard.querySelector('.error');
+      if (existingError) existingError.remove();
+
+      if (step.type === 'single') {
+        if (!leadData.answers[step.key] && !activeSelection) {
+          showError('בחרו בבקשה את האפשרות המתאימה.');
+          return false;
+        }
+      }
+      if (step.type === 'multi') {
+        if (!leadData.answers[step.key] || leadData.answers[step.key].length === 0) {
+          showError('בחרו לפחות אפשרות אחת כדי שנבין מה חשוב לכם.');
+          return false;
+        }
+      }
+      if (step.type === 'date') {
+        const input = document.getElementById('eventDate');
+        const value = input?.value.trim();
+        if (!value && leadData.answers.eventDate !== 'עדיין אין תאריך סופי') {
+          showError('אנא בחרו תאריך או סמנו שאין תאריך סופי.');
+          return false;
+        }
+        if (value) leadData.answers.eventDate = value;
+      }
+      if (step.type === 'text') {
+        const input = document.getElementById(step.key);
+        const value = input?.value.trim();
+        if (!value) {
+          showError('אנא הזינו עיר או יישוב.');
+          return false;
+        }
+        leadData.answers[step.key] = value;
+      }
+      if (step.type === 'contact') {
+        const fullName = document.getElementById('fullName')?.value.trim();
+        const phone = document.getElementById('phone')?.value.trim();
+        const email = document.getElementById('email')?.value.trim();
+        if (!fullName) { showError('אנא הזינו שם מלא.'); return false; }
+        if (!validatePhone(phone)) { showError('אנא הזינו מספר טלפון תקין.'); return false; }
+        leadData.answers.fullName = fullName;
+        leadData.answers.phone = phone;
+        if (email) leadData.answers.email = email;
+      }
+      return true;
+    }
+
+    function showError(text) {
+      const msg = document.createElement('div');
+      msg.className = 'error';
+      msg.setAttribute('role', 'alert');
+      msg.setAttribute('aria-atomic', 'true');
+      msg.textContent = text;
+      stepCard.appendChild(msg);
+      msg.scrollIntoView({ block: 'nearest' });
+    }
+
+    function saveCurrentStep() {
+      const step = steps[currentStep];
+      if (step.type === 'single' && activeSelection) {
+        leadData.answers[step.key] = activeSelection;
+      }
+      if (step.type === 'contact') {
+        const fullName = document.getElementById('fullName')?.value.trim();
+        const phone = document.getElementById('phone')?.value.trim();
+        const email = document.getElementById('email')?.value.trim();
+        if (fullName) leadData.answers.fullName = fullName;
+        if (phone) leadData.answers.phone = phone;
+        if (email) leadData.answers.email = email;
+      }
+      leadData.events.push({ event: 'saved_step', step: currentStep + 1, timestamp: new Date().toISOString() });
+      sessionStorage.setItem('asadoroLeadDraft', JSON.stringify(leadData));
+    }
+
+    function validatePhone(value) {
+      const cleaned = value.replace(/[^0-9+]/g, '');
+      const pattern = /^(\+972|0)(5\d|7\d|2\d|3\d|4\d|8\d)\d{6,7}$/;
+      return pattern.test(cleaned);
+    }
+
+    async function submitLead() {
+      leadData.completedAt = new Date().toISOString();
+      leadData.events.push({ event: 'lead_submitted', timestamp: leadData.completedAt });
+      sessionStorage.setItem('asadoroLeadFinal', JSON.stringify(leadData));
+      const success = await persistLeadToSystem(leadData);
+      if (success) {
+        renderSuccess();
+        trackLeadEvent();
+      } else {
+        showError('אנא המתינו, נתקלה שגיאה בשליחת הטופס. נסו שנית או צרו קשר ישירות בווטסאפ.');
+      }
+    }
+
+    function renderSuccess() {
+      const summaryHtml = createSummary();
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+      document.getElementById('quizPanel').innerHTML = `
+        <div class="success-card">
+          <div class="eyebrow">Asadoro</div>
+          <h2>תודה! הפרטים שלכם התקבלו 🔥</h2>
+          <p>צוות ASADORO יעבור על פרטי האירוע ויחזור אליכם להמשך התאמה.</p>
+          <a class="btn btn-primary" href="${whatsappUrl}" target="_blank" rel="noopener noreferrer">אני רוצה לדבר איתכם עכשיו</a>
+          ${summaryHtml}
+        </div>
+      `;
+    }
+
+    function createSummary() {
+      const rows = Object.entries(leadData.answers).map(([key, value]) => {
+        const label = getLabelForKey(key);
+        const display = Array.isArray(value) ? value.join(' • ') : value;
+        return `<div class="summary-item"><strong>${label}</strong><span>${display}</span></div>`;
+      }).join('');
+      return `<div class="summary-list">${rows}</div>`;
+    }
+
+    function getLabelForKey(key) {
+      const labels = {
+        guests: 'כמות אורחים',
+        guestsExact: 'כמות מדויקת',
+        eventType: 'סוג האירוע',
+        eventDate: 'תאריך האירוע',
+        eventArea: 'עיר / אזור האירוע',
+        fullName: 'שם מלא',
+        phone: 'טלפון',
+        email: 'אימייל',
+      };
+      return labels[key] || key;
+    }
+
+    async function persistLeadToSystem(payload) {
+      console.log('ASADORO lead payload:', payload);
+      if (!WEBHOOK_URL || WEBHOOK_URL.includes('example.com')) {
+        console.warn('Webhook URL not configured or still using placeholder. Lead saved locally only.');
+        return true;
+      }
+      if (!window.fetch) return false;
+      try {
+        const response = await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        return response.ok;
+      } catch (err) {
+        console.warn('Webhook unreachable, lead saved locally.', err);
+        return false;
+      }
+    }
+
+    function parseUtmParams() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return {
+        utm_source: urlParams.get('utm_source') || '',
+        utm_medium: urlParams.get('utm_medium') || '',
+        utm_campaign: urlParams.get('utm_campaign') || '',
+        utm_content: urlParams.get('utm_content') || '',
+        utm_term: urlParams.get('utm_term') || '',
+        ad_set: urlParams.get('ad_set') || urlParams.get('adset') || '',
+        ad: urlParams.get('ad') || '',
+        campaign: urlParams.get('campaign') || ''
+      };
+    }
+
+    function logEvent(name, data = {}) {
+      const payload = { event: name, step: currentStep + 1, timestamp: new Date().toISOString(), ...data };
+      leadData.events.push(payload);
+      if (window.dataLayer) window.dataLayer.push(payload);
+      if (window.fbq) window.fbq('trackCustom', name, payload);
+      console.log('event:', payload);
+    }
+
+    function updateGuestNote(option) {
+      if (!stepNote) return;
+      const notes = {
+        '10–15': 'קבוצה קטנה מאפשרת לנו לבנות חוויה מותאמת יותר אישית. נציג יתאם איתכם את האפשרויות האידיאליות.',
+        '31–50': 'קבוצה נכבדת עם מענה מותאם ותפריט שיתאים לכל האורחים.',
+        '51+': 'כמות משמעותית שמקבלת מענה מקצועי וחבילות VIP לאירוע מושלם.',
+      };
+      stepNote.textContent = notes[option] || 'אנא בחרו את כמות האורחים, ונעדכן אתכם בתנאים הרלוונטיים.';
+    }
+
+    function trackProgress(stepKey) {
+      logEvent('step_view', { stepKey });
+    }
+
+    function trackLeadEvent() {
+      if (window.fbq) {
+        fbq('track', 'Lead');
+      }
+      if (window.dataLayer) window.dataLayer.push({ event: 'lead_complete', ...leadData.utm });
+    }
+
+    function highlightSelection(button) {
+      const siblings = Array.from(button.parentNode.querySelectorAll('button'));
+      siblings.forEach(btn => btn.classList.toggle('active', btn === button));
+    }
+
+    // Meta Pixel base snippet
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);
+    t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script', 'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  </script>
+</body>
+</html>
