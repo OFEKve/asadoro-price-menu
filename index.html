@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ASADORO – מחולל הצעות מחיר ותפריטי שולחן</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Frank+Ruhl+Libre:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<script>/* qrcode.js (MIT, davidshimjs) – embedded so QR works offline */
+var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this.parsedData=[];for(var b=[],d=0,e=this.data.length;e>d;d++){var f=this.data.charCodeAt(d);f>65536?(b[0]=240|(1835008&f)>>>18,b[1]=128|(258048&f)>>>12,b[2]=128|(4032&f)>>>6,b[3]=128|63&f):f>2048?(b[0]=224|(61440&f)>>>12,b[1]=128|(4032&f)>>>6,b[2]=128|63&f):f>128?(b[0]=192|(1984&f)>>>6,b[1]=128|63&f):b[0]=f,this.parsedData=this.parsedData.concat(b)}this.parsedData.length!=this.data.length&&(this.parsedData.unshift(191),this.parsedData.unshift(187),this.parsedData.unshift(239))}function b(a,b){this.typeNumber=a,this.errorCorrectLevel=b,this.modules=null,this.moduleCount=0,this.dataCache=null,this.dataList=[]}function i(a,b){if(void 0==a.length)throw new Error(a.length+"/"+b);for(var c=0;c<a.length&&0==a[c];)c++;this.num=new Array(a.length-c+b);for(var d=0;d<a.length-c;d++)this.num[d]=a[d+c]}function j(a,b){this.totalCount=a,this.dataCount=b}function k(){this.buffer=[],this.length=0}function m(){return"undefined"!=typeof CanvasRenderingContext2D}function n(){var a=!1,b=navigator.userAgent;return/android/i.test(b)&&(a=!0,aMat=b.toString().match(/android ([0-9]\.[0-9])/i),aMat&&aMat[1]&&(a=parseFloat(aMat[1]))),a}function r(a,b){for(var c=1,e=s(a),f=0,g=l.length;g>=f;f++){var h=0;switch(b){case d.L:h=l[f][0];break;case d.M:h=l[f][1];break;case d.Q:h=l[f][2];break;case d.H:h=l[f][3]}if(h>=e)break;c++}if(c>l.length)throw new Error("Too long data");return c}function s(a){var b=encodeURI(a).toString().replace(/\%[0-9a-fA-F]{2}/g,"a");return b.length+(b.length!=a?3:0)}a.prototype={getLength:function(){return this.parsedData.length},write:function(a){for(var b=0,c=this.parsedData.length;c>b;b++)a.put(this.parsedData[b],8)}},b.prototype={addData:function(b){var c=new a(b);this.dataList.push(c),this.dataCache=null},isDark:function(a,b){if(0>a||this.moduleCount<=a||0>b||this.moduleCount<=b)throw new Error(a+","+b);return this.modules[a][b]},getModuleCount:function(){return this.moduleCount},make:function(){this.makeImpl(!1,this.getBestMaskPattern())},makeImpl:function(a,c){this.moduleCount=4*this.typeNumber+17,this.modules=new Array(this.moduleCount);for(var d=0;d<this.moduleCount;d++){this.modules[d]=new Array(this.moduleCount);for(var e=0;e<this.moduleCount;e++)this.modules[d][e]=null}this.setupPositionProbePattern(0,0),this.setupPositionProbePattern(this.moduleCount-7,0),this.setupPositionProbePattern(0,this.moduleCount-7),this.setupPositionAdjustPattern(),this.setupTimingPattern(),this.setupTypeInfo(a,c),this.typeNumber>=7&&this.setupTypeNumber(a),null==this.dataCache&&(this.dataCache=b.createData(this.typeNumber,this.errorCorrectLevel,this.dataList)),this.mapData(this.dataCache,c)},setupPositionProbePattern:function(a,b){for(var c=-1;7>=c;c++)if(!(-1>=a+c||this.moduleCount<=a+c))for(var d=-1;7>=d;d++)-1>=b+d||this.moduleCount<=b+d||(this.modules[a+c][b+d]=c>=0&&6>=c&&(0==d||6==d)||d>=0&&6>=d&&(0==c||6==c)||c>=2&&4>=c&&d>=2&&4>=d?!0:!1)},getBestMaskPattern:function(){for(var a=0,b=0,c=0;8>c;c++){this.makeImpl(!0,c);var d=f.getLostPoint(this);(0==c||a>d)&&(a=d,b=c)}return b},createMovieClip:function(a,b,c){var d=a.createEmptyMovieClip(b,c),e=1;this.make();for(var f=0;f<this.modules.length;f++)for(var g=f*e,h=0;h<this.modules[f].length;h++){var i=h*e,j=this.modules[f][h];j&&(d.beginFill(0,100),d.moveTo(i,g),d.lineTo(i+e,g),d.lineTo(i+e,g+e),d.lineTo(i,g+e),d.endFill())}return d},setupTimingPattern:function(){for(var a=8;a<this.moduleCount-8;a++)null==this.modules[a][6]&&(this.modules[a][6]=0==a%2);for(var b=8;b<this.moduleCount-8;b++)null==this.modules[6][b]&&(this.modules[6][b]=0==b%2)},setupPositionAdjustPattern:function(){for(var a=f.getPatternPosition(this.typeNumber),b=0;b<a.length;b++)for(var c=0;c<a.length;c++){var d=a[b],e=a[c];if(null==this.modules[d][e])for(var g=-2;2>=g;g++)for(var h=-2;2>=h;h++)this.modules[d+g][e+h]=-2==g||2==g||-2==h||2==h||0==g&&0==h?!0:!1}},setupTypeNumber:function(a){for(var b=f.getBCHTypeNumber(this.typeNumber),c=0;18>c;c++){var d=!a&&1==(1&b>>c);this.modules[Math.floor(c/3)][c%3+this.moduleCount-8-3]=d}for(var c=0;18>c;c++){var d=!a&&1==(1&b>>c);this.modules[c%3+this.moduleCount-8-3][Math.floor(c/3)]=d}},setupTypeInfo:function(a,b){for(var c=this.errorCorrectLevel<<3|b,d=f.getBCHTypeInfo(c),e=0;15>e;e++){var g=!a&&1==(1&d>>e);6>e?this.modules[e][8]=g:8>e?this.modules[e+1][8]=g:this.modules[this.moduleCount-15+e][8]=g}for(var e=0;15>e;e++){var g=!a&&1==(1&d>>e);8>e?this.modules[8][this.moduleCount-e-1]=g:9>e?this.modules[8][15-e-1+1]=g:this.modules[8][15-e-1]=g}this.modules[this.moduleCount-8][8]=!a},mapData:function(a,b){for(var c=-1,d=this.moduleCount-1,e=7,g=0,h=this.moduleCount-1;h>0;h-=2)for(6==h&&h--;;){for(var i=0;2>i;i++)if(null==this.modules[d][h-i]){var j=!1;g<a.length&&(j=1==(1&a[g]>>>e));var k=f.getMask(b,d,h-i);k&&(j=!j),this.modules[d][h-i]=j,e--,-1==e&&(g++,e=7)}if(d+=c,0>d||this.moduleCount<=d){d-=c,c=-c;break}}}},b.PAD0=236,b.PAD1=17,b.createData=function(a,c,d){for(var e=j.getRSBlocks(a,c),g=new k,h=0;h<d.length;h++){var i=d[h];g.put(i.mode,4),g.put(i.getLength(),f.getLengthInBits(i.mode,a)),i.write(g)}for(var l=0,h=0;h<e.length;h++)l+=e[h].dataCount;if(g.getLengthInBits()>8*l)throw new Error("code length overflow. ("+g.getLengthInBits()+">"+8*l+")");for(g.getLengthInBits()+4<=8*l&&g.put(0,4);0!=g.getLengthInBits()%8;)g.putBit(!1);for(;;){if(g.getLengthInBits()>=8*l)break;if(g.put(b.PAD0,8),g.getLengthInBits()>=8*l)break;g.put(b.PAD1,8)}return b.createBytes(g,e)},b.createBytes=function(a,b){for(var c=0,d=0,e=0,g=new Array(b.length),h=new Array(b.length),j=0;j<b.length;j++){var k=b[j].dataCount,l=b[j].totalCount-k;d=Math.max(d,k),e=Math.max(e,l),g[j]=new Array(k);for(var m=0;m<g[j].length;m++)g[j][m]=255&a.buffer[m+c];c+=k;var n=f.getErrorCorrectPolynomial(l),o=new i(g[j],n.getLength()-1),p=o.mod(n);h[j]=new Array(n.getLength()-1);for(var m=0;m<h[j].length;m++){var q=m+p.getLength()-h[j].length;h[j][m]=q>=0?p.get(q):0}}for(var r=0,m=0;m<b.length;m++)r+=b[m].totalCount;for(var s=new Array(r),t=0,m=0;d>m;m++)for(var j=0;j<b.length;j++)m<g[j].length&&(s[t++]=g[j][m]);for(var m=0;e>m;m++)for(var j=0;j<b.length;j++)m<h[j].length&&(s[t++]=h[j][m]);return s};for(var c={MODE_NUMBER:1,MODE_ALPHA_NUM:2,MODE_8BIT_BYTE:4,MODE_KANJI:8},d={L:1,M:0,Q:3,H:2},e={PATTERN000:0,PATTERN001:1,PATTERN010:2,PATTERN011:3,PATTERN100:4,PATTERN101:5,PATTERN110:6,PATTERN111:7},f={PATTERN_POSITION_TABLE:[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]],G15:1335,G18:7973,G15_MASK:21522,getBCHTypeInfo:function(a){for(var b=a<<10;f.getBCHDigit(b)-f.getBCHDigit(f.G15)>=0;)b^=f.G15<<f.getBCHDigit(b)-f.getBCHDigit(f.G15);return(a<<10|b)^f.G15_MASK},getBCHTypeNumber:function(a){for(var b=a<<12;f.getBCHDigit(b)-f.getBCHDigit(f.G18)>=0;)b^=f.G18<<f.getBCHDigit(b)-f.getBCHDigit(f.G18);return a<<12|b},getBCHDigit:function(a){for(var b=0;0!=a;)b++,a>>>=1;return b},getPatternPosition:function(a){return f.PATTERN_POSITION_TABLE[a-1]},getMask:function(a,b,c){switch(a){case e.PATTERN000:return 0==(b+c)%2;case e.PATTERN001:return 0==b%2;case e.PATTERN010:return 0==c%3;case e.PATTERN011:return 0==(b+c)%3;case e.PATTERN100:return 0==(Math.floor(b/2)+Math.floor(c/3))%2;case e.PATTERN101:return 0==b*c%2+b*c%3;case e.PATTERN110:return 0==(b*c%2+b*c%3)%2;case e.PATTERN111:return 0==(b*c%3+(b+c)%2)%2;default:throw new Error("bad maskPattern:"+a)}},getErrorCorrectPolynomial:function(a){for(var b=new i([1],0),c=0;a>c;c++)b=b.multiply(new i([1,g.gexp(c)],0));return b},getLengthInBits:function(a,b){if(b>=1&&10>b)switch(a){case c.MODE_NUMBER:return 10;case c.MODE_ALPHA_NUM:return 9;case c.MODE_8BIT_BYTE:return 8;case c.MODE_KANJI:return 8;default:throw new Error("mode:"+a)}else if(27>b)switch(a){case c.MODE_NUMBER:return 12;case c.MODE_ALPHA_NUM:return 11;case c.MODE_8BIT_BYTE:return 16;case c.MODE_KANJI:return 10;default:throw new Error("mode:"+a)}else{if(!(41>b))throw new Error("type:"+b);switch(a){case c.MODE_NUMBER:return 14;case c.MODE_ALPHA_NUM:return 13;case c.MODE_8BIT_BYTE:return 16;case c.MODE_KANJI:return 12;default:throw new Error("mode:"+a)}}},getLostPoint:function(a){for(var b=a.getModuleCount(),c=0,d=0;b>d;d++)for(var e=0;b>e;e++){for(var f=0,g=a.isDark(d,e),h=-1;1>=h;h++)if(!(0>d+h||d+h>=b))for(var i=-1;1>=i;i++)0>e+i||e+i>=b||(0!=h||0!=i)&&g==a.isDark(d+h,e+i)&&f++;f>5&&(c+=3+f-5)}for(var d=0;b-1>d;d++)for(var e=0;b-1>e;e++){var j=0;a.isDark(d,e)&&j++,a.isDark(d+1,e)&&j++,a.isDark(d,e+1)&&j++,a.isDark(d+1,e+1)&&j++,(0==j||4==j)&&(c+=3)}for(var d=0;b>d;d++)for(var e=0;b-6>e;e++)a.isDark(d,e)&&!a.isDark(d,e+1)&&a.isDark(d,e+2)&&a.isDark(d,e+3)&&a.isDark(d,e+4)&&!a.isDark(d,e+5)&&a.isDark(d,e+6)&&(c+=40);for(var e=0;b>e;e++)for(var d=0;b-6>d;d++)a.isDark(d,e)&&!a.isDark(d+1,e)&&a.isDark(d+2,e)&&a.isDark(d+3,e)&&a.isDark(d+4,e)&&!a.isDark(d+5,e)&&a.isDark(d+6,e)&&(c+=40);for(var k=0,e=0;b>e;e++)for(var d=0;b>d;d++)a.isDark(d,e)&&k++;var l=Math.abs(100*k/b/b-50)/5;return c+=10*l}},g={glog:function(a){if(1>a)throw new Error("glog("+a+")");return g.LOG_TABLE[a]},gexp:function(a){for(;0>a;)a+=255;for(;a>=256;)a-=255;return g.EXP_TABLE[a]},EXP_TABLE:new Array(256),LOG_TABLE:new Array(256)},h=0;8>h;h++)g.EXP_TABLE[h]=1<<h;for(var h=8;256>h;h++)g.EXP_TABLE[h]=g.EXP_TABLE[h-4]^g.EXP_TABLE[h-5]^g.EXP_TABLE[h-6]^g.EXP_TABLE[h-8];for(var h=0;255>h;h++)g.LOG_TABLE[g.EXP_TABLE[h]]=h;i.prototype={get:function(a){return this.num[a]},getLength:function(){return this.num.length},multiply:function(a){for(var b=new Array(this.getLength()+a.getLength()-1),c=0;c<this.getLength();c++)for(var d=0;d<a.getLength();d++)b[c+d]^=g.gexp(g.glog(this.get(c))+g.glog(a.get(d)));return new i(b,0)},mod:function(a){if(this.getLength()-a.getLength()<0)return this;for(var b=g.glog(this.get(0))-g.glog(a.get(0)),c=new Array(this.getLength()),d=0;d<this.getLength();d++)c[d]=this.get(d);for(var d=0;d<a.getLength();d++)c[d]^=g.gexp(g.glog(a.get(d))+b);return new i(c,0).mod(a)}},j.RS_BLOCK_TABLE=[[1,26,19],[1,26,16],[1,26,13],[1,26,9],[1,44,34],[1,44,28],[1,44,22],[1,44,16],[1,70,55],[1,70,44],[2,35,17],[2,35,13],[1,100,80],[2,50,32],[2,50,24],[4,25,9],[1,134,108],[2,67,43],[2,33,15,2,34,16],[2,33,11,2,34,12],[2,86,68],[4,43,27],[4,43,19],[4,43,15],[2,98,78],[4,49,31],[2,32,14,4,33,15],[4,39,13,1,40,14],[2,121,97],[2,60,38,2,61,39],[4,40,18,2,41,19],[4,40,14,2,41,15],[2,146,116],[3,58,36,2,59,37],[4,36,16,4,37,17],[4,36,12,4,37,13],[2,86,68,2,87,69],[4,69,43,1,70,44],[6,43,19,2,44,20],[6,43,15,2,44,16],[4,101,81],[1,80,50,4,81,51],[4,50,22,4,51,23],[3,36,12,8,37,13],[2,116,92,2,117,93],[6,58,36,2,59,37],[4,46,20,6,47,21],[7,42,14,4,43,15],[4,133,107],[8,59,37,1,60,38],[8,44,20,4,45,21],[12,33,11,4,34,12],[3,145,115,1,146,116],[4,64,40,5,65,41],[11,36,16,5,37,17],[11,36,12,5,37,13],[5,109,87,1,110,88],[5,65,41,5,66,42],[5,54,24,7,55,25],[11,36,12],[5,122,98,1,123,99],[7,73,45,3,74,46],[15,43,19,2,44,20],[3,45,15,13,46,16],[1,135,107,5,136,108],[10,74,46,1,75,47],[1,50,22,15,51,23],[2,42,14,17,43,15],[5,150,120,1,151,121],[9,69,43,4,70,44],[17,50,22,1,51,23],[2,42,14,19,43,15],[3,141,113,4,142,114],[3,70,44,11,71,45],[17,47,21,4,48,22],[9,39,13,16,40,14],[3,135,107,5,136,108],[3,67,41,13,68,42],[15,54,24,5,55,25],[15,43,15,10,44,16],[4,144,116,4,145,117],[17,68,42],[17,50,22,6,51,23],[19,46,16,6,47,17],[2,139,111,7,140,112],[17,74,46],[7,54,24,16,55,25],[34,37,13],[4,151,121,5,152,122],[4,75,47,14,76,48],[11,54,24,14,55,25],[16,45,15,14,46,16],[6,147,117,4,148,118],[6,73,45,14,74,46],[11,54,24,16,55,25],[30,46,16,2,47,17],[8,132,106,4,133,107],[8,75,47,13,76,48],[7,54,24,22,55,25],[22,45,15,13,46,16],[10,142,114,2,143,115],[19,74,46,4,75,47],[28,50,22,6,51,23],[33,46,16,4,47,17],[8,152,122,4,153,123],[22,73,45,3,74,46],[8,53,23,26,54,24],[12,45,15,28,46,16],[3,147,117,10,148,118],[3,73,45,23,74,46],[4,54,24,31,55,25],[11,45,15,31,46,16],[7,146,116,7,147,117],[21,73,45,7,74,46],[1,53,23,37,54,24],[19,45,15,26,46,16],[5,145,115,10,146,116],[19,75,47,10,76,48],[15,54,24,25,55,25],[23,45,15,25,46,16],[13,145,115,3,146,116],[2,74,46,29,75,47],[42,54,24,1,55,25],[23,45,15,28,46,16],[17,145,115],[10,74,46,23,75,47],[10,54,24,35,55,25],[19,45,15,35,46,16],[17,145,115,1,146,116],[14,74,46,21,75,47],[29,54,24,19,55,25],[11,45,15,46,46,16],[13,145,115,6,146,116],[14,74,46,23,75,47],[44,54,24,7,55,25],[59,46,16,1,47,17],[12,151,121,7,152,122],[12,75,47,26,76,48],[39,54,24,14,55,25],[22,45,15,41,46,16],[6,151,121,14,152,122],[6,75,47,34,76,48],[46,54,24,10,55,25],[2,45,15,64,46,16],[17,152,122,4,153,123],[29,74,46,14,75,47],[49,54,24,10,55,25],[24,45,15,46,46,16],[4,152,122,18,153,123],[13,74,46,32,75,47],[48,54,24,14,55,25],[42,45,15,32,46,16],[20,147,117,4,148,118],[40,75,47,7,76,48],[43,54,24,22,55,25],[10,45,15,67,46,16],[19,148,118,6,149,119],[18,75,47,31,76,48],[34,54,24,34,55,25],[20,45,15,61,46,16]],j.getRSBlocks=function(a,b){var c=j.getRsBlockTable(a,b);if(void 0==c)throw new Error("bad rs block @ typeNumber:"+a+"/errorCorrectLevel:"+b);for(var d=c.length/3,e=[],f=0;d>f;f++)for(var g=c[3*f+0],h=c[3*f+1],i=c[3*f+2],k=0;g>k;k++)e.push(new j(h,i));return e},j.getRsBlockTable=function(a,b){switch(b){case d.L:return j.RS_BLOCK_TABLE[4*(a-1)+0];case d.M:return j.RS_BLOCK_TABLE[4*(a-1)+1];case d.Q:return j.RS_BLOCK_TABLE[4*(a-1)+2];case d.H:return j.RS_BLOCK_TABLE[4*(a-1)+3];default:return void 0}},k.prototype={get:function(a){var b=Math.floor(a/8);return 1==(1&this.buffer[b]>>>7-a%8)},put:function(a,b){for(var c=0;b>c;c++)this.putBit(1==(1&a>>>b-c-1))},getLengthInBits:function(){return this.length},putBit:function(a){var b=Math.floor(this.length/8);this.buffer.length<=b&&this.buffer.push(0),a&&(this.buffer[b]|=128>>>this.length%8),this.length++}};var l=[[17,14,11,7],[32,26,20,14],[53,42,32,24],[78,62,46,34],[106,84,60,44],[134,106,74,58],[154,122,86,64],[192,152,108,84],[230,180,130,98],[271,213,151,119],[321,251,177,137],[367,287,203,155],[425,331,241,177],[458,362,258,194],[520,412,292,220],[586,450,322,250],[644,504,364,280],[718,560,394,310],[792,624,442,338],[858,666,482,382],[929,711,509,403],[1003,779,565,439],[1091,857,611,461],[1171,911,661,511],[1273,997,715,535],[1367,1059,751,593],[1465,1125,805,625],[1528,1190,868,658],[1628,1264,908,698],[1732,1370,982,742],[1840,1452,1030,790],[1952,1538,1112,842],[2068,1628,1168,898],[2188,1722,1228,958],[2303,1809,1283,983],[2431,1911,1351,1051],[2563,1989,1423,1093],[2699,2099,1499,1139],[2809,2213,1579,1219],[2953,2331,1663,1273]],o=function(){var a=function(a,b){this._el=a,this._htOption=b};return a.prototype.draw=function(a){function g(a,b){var c=document.createElementNS("http://www.w3.org/2000/svg",a);for(var d in b)b.hasOwnProperty(d)&&c.setAttribute(d,b[d]);return c}var b=this._htOption,c=this._el,d=a.getModuleCount();Math.floor(b.width/d),Math.floor(b.height/d),this.clear();var h=g("svg",{viewBox:"0 0 "+String(d)+" "+String(d),width:"100%",height:"100%",fill:b.colorLight});h.setAttributeNS("http://www.w3.org/2000/xmlns/","xmlns:xlink","http://www.w3.org/1999/xlink"),c.appendChild(h),h.appendChild(g("rect",{fill:b.colorDark,width:"1",height:"1",id:"template"}));for(var i=0;d>i;i++)for(var j=0;d>j;j++)if(a.isDark(i,j)){var k=g("use",{x:String(i),y:String(j)});k.setAttributeNS("http://www.w3.org/1999/xlink","href","#template"),h.appendChild(k)}},a.prototype.clear=function(){for(;this._el.hasChildNodes();)this._el.removeChild(this._el.lastChild)},a}(),p="svg"===document.documentElement.tagName.toLowerCase(),q=p?o:m()?function(){function a(){this._elImage.src=this._elCanvas.toDataURL("image/png"),this._elImage.style.display="block",this._elCanvas.style.display="none"}function d(a,b){var c=this;if(c._fFail=b,c._fSuccess=a,null===c._bSupportDataURI){var d=document.createElement("img"),e=function(){c._bSupportDataURI=!1,c._fFail&&_fFail.call(c)},f=function(){c._bSupportDataURI=!0,c._fSuccess&&c._fSuccess.call(c)};return d.onabort=e,d.onerror=e,d.onload=f,d.src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",void 0}c._bSupportDataURI===!0&&c._fSuccess?c._fSuccess.call(c):c._bSupportDataURI===!1&&c._fFail&&c._fFail.call(c)}if(this._android&&this._android<=2.1){var b=1/window.devicePixelRatio,c=CanvasRenderingContext2D.prototype.drawImage;CanvasRenderingContext2D.prototype.drawImage=function(a,d,e,f,g,h,i,j){if("nodeName"in a&&/img/i.test(a.nodeName))for(var l=arguments.length-1;l>=1;l--)arguments[l]=arguments[l]*b;else"undefined"==typeof j&&(arguments[1]*=b,arguments[2]*=b,arguments[3]*=b,arguments[4]*=b);c.apply(this,arguments)}}var e=function(a,b){this._bIsPainted=!1,this._android=n(),this._htOption=b,this._elCanvas=document.createElement("canvas"),this._elCanvas.width=b.width,this._elCanvas.height=b.height,a.appendChild(this._elCanvas),this._el=a,this._oContext=this._elCanvas.getContext("2d"),this._bIsPainted=!1,this._elImage=document.createElement("img"),this._elImage.style.display="none",this._el.appendChild(this._elImage),this._bSupportDataURI=null};return e.prototype.draw=function(a){var b=this._elImage,c=this._oContext,d=this._htOption,e=a.getModuleCount(),f=d.width/e,g=d.height/e,h=Math.round(f),i=Math.round(g);b.style.display="none",this.clear();for(var j=0;e>j;j++)for(var k=0;e>k;k++){var l=a.isDark(j,k),m=k*f,n=j*g;c.strokeStyle=l?d.colorDark:d.colorLight,c.lineWidth=1,c.fillStyle=l?d.colorDark:d.colorLight,c.fillRect(m,n,f,g),c.strokeRect(Math.floor(m)+.5,Math.floor(n)+.5,h,i),c.strokeRect(Math.ceil(m)-.5,Math.ceil(n)-.5,h,i)}this._bIsPainted=!0},e.prototype.makeImage=function(){this._bIsPainted&&d.call(this,a)},e.prototype.isPainted=function(){return this._bIsPainted},e.prototype.clear=function(){this._oContext.clearRect(0,0,this._elCanvas.width,this._elCanvas.height),this._bIsPainted=!1},e.prototype.round=function(a){return a?Math.floor(1e3*a)/1e3:a},e}():function(){var a=function(a,b){this._el=a,this._htOption=b};return a.prototype.draw=function(a){for(var b=this._htOption,c=this._el,d=a.getModuleCount(),e=Math.floor(b.width/d),f=Math.floor(b.height/d),g=['<table style="border:0;border-collapse:collapse;">'],h=0;d>h;h++){g.push("<tr>");for(var i=0;d>i;i++)g.push('<td style="border:0;border-collapse:collapse;padding:0;margin:0;width:'+e+"px;height:"+f+"px;background-color:"+(a.isDark(h,i)?b.colorDark:b.colorLight)+';"></td>');g.push("</tr>")}g.push("</table>"),c.innerHTML=g.join("");var j=c.childNodes[0],k=(b.width-j.offsetWidth)/2,l=(b.height-j.offsetHeight)/2;k>0&&l>0&&(j.style.margin=l+"px "+k+"px")},a.prototype.clear=function(){this._el.innerHTML=""},a}();QRCode=function(a,b){if(this._htOption={width:256,height:256,typeNumber:4,colorDark:"#000000",colorLight:"#ffffff",correctLevel:d.H},"string"==typeof b&&(b={text:b}),b)for(var c in b)this._htOption[c]=b[c];"string"==typeof a&&(a=document.getElementById(a)),this._android=n(),this._el=a,this._oQRCode=null,this._oDrawing=new q(this._el,this._htOption),this._htOption.text&&this.makeCode(this._htOption.text)},QRCode.prototype.makeCode=function(a){this._oQRCode=new b(r(a,this._htOption.correctLevel),this._htOption.correctLevel),this._oQRCode.addData(a),this._oQRCode.make(),this._el.title=a,this._oDrawing.draw(this._oQRCode),this.makeImage()},QRCode.prototype.makeImage=function(){"function"==typeof this._oDrawing.makeImage&&(!this._android||this._android>=3)&&this._oDrawing.makeImage()},QRCode.prototype.clear=function(){this._oDrawing.clear()},QRCode.CorrectLevel=d}();
+</script>
+<style id="page-style"></style>
+<style>
+  :root {
+    --gold: #b08a3c; --gold-dark: #8d6a24;
+    --ink: #23201b; --muted: #6e6558;
+    --paper: #f8f5ef; --line: #d8c7a1; --soft: #efe6d3;
+    --bg: #1a1510; --panel: #211d16; --pb: #3a3020;
+    --tl: #e8dfc8; --td: #c8b880;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: "Georgia","Times New Roman",serif; min-height: 100vh; }
+  #builder { display: flex; min-height: 100vh; }
+
+  .panel {
+    width: 500px; min-width: 500px; background: var(--panel);
+    border-left: 1px solid var(--pb); overflow-y: auto;
+    padding: 22px 18px 50px; display: flex; flex-direction: column; gap: 14px;
+  }
+  .panel-header { text-align: center; border-bottom: 1px solid var(--pb); padding-bottom: 14px; }
+  .panel-brand { font-size: 22px; letter-spacing: 3px; color: var(--gold); font-weight: 700; }
+  .panel-sub { font-size: 10px; letter-spacing: 2px; color: var(--muted); margin-top: 2px; }
+  .panel-title { margin-top: 7px; font-size: 12px; color: var(--td); }
+
+  .card { background: #2a2318; border: 1px solid var(--pb); border-radius: 2px; }
+  .card-head {
+    padding: 8px 12px;
+    background: linear-gradient(90deg,rgba(176,138,60,.18),rgba(176,138,60,.04));
+    border-bottom: 1px solid var(--pb);
+    font-size: 12px; color: var(--gold); font-weight: 700; letter-spacing: .5px;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; user-select: none;
+  }
+  .card-head .ci { font-size: 10px; color: var(--muted); }
+  .card-body { padding: 12px; display: flex; flex-direction: column; gap: 9px; }
+  .card-body.collapsed { display: none; }
+
+  label { font-size: 11px; color: var(--td); display: block; margin-bottom: 3px; }
+  input[type="text"],input[type="number"],select,textarea {
+    width: 100%; background: #1a1510; border: 1px solid var(--pb);
+    color: var(--tl); padding: 6px 9px; font-size: 12px; font-family: inherit; outline: none; border-radius: 1px;
+  }
+  input:focus,select:focus,textarea:focus { border-color: var(--gold); }
+  textarea { resize: vertical; min-height: 50px; }
+  select option { background: #211d16; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+
+  /* PRICE PANEL */
+  .price-summary {
+    background: #1a1510; border: 1px solid var(--pb);
+    padding: 11px 13px; display: flex; flex-direction: column; gap: 5px; font-size: 12px; color: var(--td);
+  }
+  .price-summary .row { display: flex; justify-content: space-between; }
+  .price-summary .row strong { color: var(--tl); }
+  .price-summary .sep { border-top: 1px solid var(--pb); margin: 3px 0; }
+  .price-summary .total-row { display: flex; justify-content: space-between; font-size: 15px; color: var(--gold); font-weight: 700; }
+
+  /* ROUNDING – internal tool only */
+  .round-box { background: #1a1510; border: 1px solid var(--pb); padding: 10px 11px; display: flex; flex-direction: column; gap: 7px; }
+  .round-box-title { font-size: 11px; color: var(--td); font-weight: 700; }
+  .round-hint { font-size: 10px; color: var(--muted); }
+  .round-options { display: flex; gap: 5px; flex-wrap: wrap; }
+  .round-btn {
+    padding: 4px 9px; background: #211d16; border: 1px solid var(--pb);
+    color: var(--muted); font-size: 11px; cursor: pointer; font-family: inherit; border-radius: 1px; transition: all .15s;
+  }
+  .round-btn:hover { border-color: var(--gold); color: var(--td); }
+  .round-btn.active { background: rgba(176,138,60,.2); border-color: var(--gold); color: var(--gold); font-weight: 700; }
+  .round-result { font-size: 12px; color: var(--td); }
+  .round-result strong { color: var(--gold); font-size: 14px; }
+
+  /* ITEMS */
+  .items-list { display: flex; flex-direction: column; gap: 4px; }
+  .item-row {
+    display: flex; align-items: flex-start; gap: 6px;
+    background: #1a1510; border: 1px solid var(--pb); padding: 5px 8px;
+    font-size: 12px; color: var(--td);
+  }
+  .item-row input[type="checkbox"] { width: 13px; height: 13px; accent-color: var(--gold); cursor: pointer; flex-shrink: 0; margin-top: 2px; }
+  .item-label { flex: 1; line-height: 1.4; }
+  .item-desc-small { font-size: 10px; color: var(--muted); line-height: 1.3; margin-top: 2px; }
+  .btn-remove { background: transparent; border: none; color: #4a3a2a; cursor: pointer; font-size: 12px; padding: 0 2px; line-height: 1; flex-shrink: 0; }
+  .btn-remove:hover { color: #c06050; }
+  .add-item-row { display: flex; gap: 5px; }
+  .add-item-row input { flex: 1; }
+  .btn-add { background: transparent; border: 1px solid var(--gold-dark); color: var(--gold); padding: 5px 10px; font-size: 11px; cursor: pointer; white-space: nowrap; font-family: inherit; }
+  .btn-add:hover { background: rgba(176,138,60,.15); }
+
+  /* TABS */
+  .section-tabs { display: flex; border: 1px solid var(--pb); overflow: hidden; }
+  .tab-btn { flex: 1; padding: 6px 2px; background: #1a1510; border: none; color: var(--muted); font-size: 11px; cursor: pointer; border-left: 1px solid var(--pb); font-family: inherit; }
+  .tab-btn:last-child { border-left: none; }
+  .tab-btn.active { background: rgba(176,138,60,.2); color: var(--gold); }
+  .tab-content { display: none; }
+  .tab-content.active { display: flex; flex-direction: column; gap: 7px; }
+
+  .btn-generate { background: linear-gradient(135deg,var(--gold-dark),var(--gold)); border: none; color: #1a1510; padding: 12px; font-size: 14px; font-weight: 700; cursor: pointer; letter-spacing: 1px; font-family: inherit; width: 100%; transition: opacity .2s; }
+  .btn-generate:hover { opacity: .88; }
+  .btn-print { background: transparent; border: 1px solid var(--gold-dark); color: var(--gold); padding: 9px; font-size: 13px; cursor: pointer; letter-spacing: 1px; font-family: inherit; width: 100%; transition: background .2s; }
+  .btn-print:hover { background: rgba(176,138,60,.15); }
+
+  /* PREVIEW */
+  #preview-area { flex: 1; overflow-y: auto; background: #13100c; display: flex; flex-direction: column; align-items: stretch; padding: 16px 12px; gap: 16px; }
+  .preview-hint { color: #4a3f2f; font-size: 13px; text-align: center; margin-top: 40px; letter-spacing: 1px; }
+
+  /* QUOTE PAGE */
+  .quote-page { width: 100%; max-width: 210mm; min-height: 297mm; background: var(--paper); border: 1px solid var(--line); padding: 14mm 13mm 12mm; position: relative; box-shadow: 0 8px 60px rgba(0,0,0,.7); }
+  .quote-page::before { content: ""; position: absolute; inset: 7mm; border: 1.4px solid var(--gold); pointer-events: none; z-index: 0; }
+  .q-top-accent { height: 5px; width: 100%; background: linear-gradient(90deg,var(--gold-dark),#d8bd72,var(--gold-dark)); margin-bottom: 14px; }
+  .q-brand { text-align: center; padding: 4px 0 12px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
+  .q-brand-mark { font-size: 30px; letter-spacing: 2px; color: var(--gold-dark); font-weight: 700; }
+  .q-brand-sub { margin-top: 4px; font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+  .q-doc-title { text-align: center; margin: 10px 0 16px; }
+  .q-doc-title h1 { font-size: 22px; color: var(--ink); font-weight: 700; }
+  .q-doc-title p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+  .q-main { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; }
+  .q-section { margin-bottom: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.45); break-inside: avoid; }
+  .q-section-title { margin: 0; padding: 8px 12px; font-size: 15px; color: var(--gold-dark); background: linear-gradient(90deg,rgba(176,138,60,.12),rgba(176,138,60,.03)); border-bottom: 1px solid var(--line); font-weight: 700; }
+  .extra-fields { display: none; gap: 9px; }
+  .extra-fields.active { display: grid; }
+  .q-section-body { padding: 9px 12px 10px; font-size: 13px; }
+  .q-section-body p { margin: 4px 0; }
+  .q-section-body ul { padding-right: 16px; }
+  .q-section-body li { margin-bottom: 3px; }
+  .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .menu-card { border: 1px solid var(--soft); background: rgba(248,245,239,.78); padding: 7px 9px; }
+  .menu-card h3 { margin: 0 0 5px; font-size: 13px; color: var(--gold-dark); }
+  .menu-card ul { margin: 0; padding-right: 14px; font-size: 11px; line-height: 1.55; }
+  .menu-card li { margin-bottom: 2px; }
+  .price-box { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px; }
+  .price-card { border: 1px solid var(--soft); background: rgba(248,245,239,.75); padding: 7px 10px; font-size: 13px; }
+  .price-card strong { color: var(--gold-dark); }
+  .price-highlight { color: var(--gold-dark); font-weight: 700; font-size: 15px; margin: 8px 0; }
+  .q-notes { color: var(--muted); font-size: 11px; margin-top: 6px; }
+  .q-signatures { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+  .q-sign-box { text-align: center; padding-top: 10px; }
+  .q-sign-line { border-bottom: 1px solid var(--gold-dark); height: 26px; margin-bottom: 6px; }
+  .q-footer { margin-top: 10px; text-align: center; font-size: 11px; color: var(--muted); }
+
+  /* ============ TABLE MENU (תפריט שולחן) ============ */
+  .btn-menu { background: linear-gradient(135deg,#5a4118,#8d6a24); color:#f3e8cf; }
+
+  .scale-row { display:flex; align-items:center; gap:8px; }
+  .scale-row input[type="range"] { flex:1; accent-color: var(--gold); height:4px; }
+  .scale-val { font-size:11px; color:var(--gold); min-width:38px; text-align:center; }
+
+  .menu-page {
+    position: relative; flex-shrink: 0; overflow: hidden;
+    box-shadow: 0 8px 60px rgba(0,0,0,.7);
+    background: var(--mbg);
+    font-family: "Frank Ruhl Libre","Georgia",serif;
+    break-inside: avoid; page-break-inside: avoid;
+  }
+  /* — themes — */
+  .theme-fine  { --mbg:#f8f3e8; --mink:#2b2418; --mgold:#a3803a; --msub:#7d7160; --mframe:#c2a35c; --mtile:#ffffff; }
+  .theme-black {
+    --mbg:#0f0c08; --mink:#e9dcb8; --mgold:#d2b06a; --msub:#a08e64; --mframe:#8a6f3a; --mtile:#f5efe0;
+    background: radial-gradient(ellipse at 50% 26%, rgba(210,176,106,.07), transparent 62%), #0f0c08;
+  }
+  .theme-fire {
+    --mbg:#22110a; --mink:#f4e6d1; --mgold:#e0813a; --msub:#c79a6e; --mframe:#a35c26; --mtile:#f7efe2;
+    background:
+      radial-gradient(ellipse at 50% 108%, rgba(224,129,58,.20), transparent 58%),
+      linear-gradient(rgba(34,17,10,.93), rgba(28,13,7,.96)),
+      repeating-linear-gradient(90deg, #3a1f10 0 6px, #33190c 6px 13px, #3d2212 13px 22px);
+  }
+  .theme-white { --mbg:#ffffff; --mink:#35322b; --mgold:#b6974c; --msub:#8d877a; --mframe:#d6c288; --mtile:#ffffff; }
+
+  /* — sizes (exact print dimensions) — */
+  .size-a4p { width:210mm; height:297mm; --mpad:15mm; --mf:14.5px; }
+  .size-a5p { width:148mm; height:210mm; --mpad:11mm; --mf:12px; }
+  .size-a5l { width:210mm; height:148mm; --mpad:9mm;  --mf:11px; }
+  .size-dl  { width:100mm; height:210mm; --mpad:8mm;  --mf:10px; }
+  .size-sq  { width:150mm; height:150mm; --mpad:9mm;  --mf:10.5px; }
+
+  .m-frame { position:absolute; inset:5.5mm; border:1px solid var(--mframe); pointer-events:none; z-index:1; }
+  .m-frame::after { content:""; position:absolute; inset:1.6mm; border:.6px solid var(--mframe); opacity:.5; }
+  .theme-fire .m-frame::after { display:none; }
+
+  .m-inner {
+    position:relative; z-index:2; height:100%; padding:var(--mpad);
+    display:flex; flex-direction:column; align-items:center; text-align:center;
+    color:var(--mink); font-size:var(--mf); line-height:1.35;
+  }
+  .m-latin { font-family:"Cormorant Garamond","Georgia",serif; }
+
+  .m-brand { font-family:"Cormorant Garamond",serif; font-weight:600; font-size:2.1em; letter-spacing:.32em; margin-right:-.32em; color:var(--mgold); }
+  .m-brand-sub { font-family:"Cormorant Garamond",serif; font-size:.62em; letter-spacing:.42em; margin-right:-.42em; color:var(--msub); margin-top:.35em; }
+
+  .m-div { display:flex; align-items:center; justify-content:center; gap:.7em; color:var(--mgold); margin:1.1em 0 .9em; width:100%; }
+  .m-div::before,.m-div::after { content:""; height:1px; width:3.2em; background:linear-gradient(90deg,transparent,var(--mgold)); }
+  .m-div::after { background:linear-gradient(90deg,var(--mgold),transparent); }
+  .m-div svg { width:1em; height:1.25em; display:block; }
+  .m-div.small { margin:.8em 0 .6em; }
+  .m-div.small::before,.m-div.small::after { width:2.2em; opacity:.75; }
+
+  .m-menu-word { font-family:"Cormorant Garamond",serif; font-weight:500; font-size:1.55em; letter-spacing:.5em; margin-right:-.5em; color:var(--mink); }
+  .m-menu-word-he { font-size:1.35em; letter-spacing:.28em; margin-right:-.28em; font-family:"Frank Ruhl Libre",serif; font-weight:500; }
+  .m-menu-word-sub { font-size:.78em; letter-spacing:.3em; margin-right:-.3em; color:var(--msub); margin-top:.3em; }
+
+  .m-honor { margin-top:1.2em; font-size:.82em; letter-spacing:.22em; margin-right:-.22em; color:var(--msub); text-transform:uppercase; }
+  .m-honor-name { font-size:1.65em; font-weight:500; color:var(--mink); margin-top:.28em; }
+  .m-honor-name.big { font-family:"Cormorant Garamond",serif; font-size:2.1em; font-weight:500; }
+  .m-custom { font-size:1.7em; font-weight:600; color:var(--mgold); margin-top:1em; line-height:1.3; letter-spacing:.03em; }
+  .m-custom-sub { font-size:1.05em; font-weight:400; color:var(--mink); margin-top:.35em; line-height:1.4; }
+  .m-event-title { font-size:1.5em; font-weight:600; color:var(--mgold); margin-top:.75em; letter-spacing:.06em; }
+  .m-event-title-en { font-family:"Cormorant Garamond",serif; font-size:.9em; letter-spacing:.26em; margin-right:-.26em; color:var(--msub); margin-top:.25em; text-transform:uppercase; }
+  .m-date { font-family:"Cormorant Garamond",serif; font-size:.9em; letter-spacing:.24em; margin-right:-.24em; color:var(--msub); margin-top:.55em; }
+  .m-track { font-family:"Cormorant Garamond",serif; font-size:.68em; letter-spacing:.34em; margin-right:-.34em; color:var(--msub); margin-top:.4em; text-transform:uppercase; }
+
+  .m-cats { width:100%; margin-top:.4em; }
+  .size-a5l .m-cats { column-count:2; column-gap:3em; }
+  .m-cat { margin:1em 0; break-inside:avoid; page-break-inside:avoid; }
+  .m-cat-title { font-size:1.05em; font-weight:700; color:var(--mgold); letter-spacing:.14em; }
+  .m-cat-title.m-latin { font-weight:600; letter-spacing:.3em; margin-right:-.3em; text-transform:uppercase; }
+  .m-cat-sub { font-family:"Cormorant Garamond",serif; font-size:.68em; letter-spacing:.3em; margin-right:-.3em; color:var(--msub); text-transform:uppercase; margin-top:.15em; }
+  .m-cat-rule { width:2.6em; height:1px; background:var(--mgold); opacity:.55; margin:.45em auto .6em; }
+  .m-dish { font-size:.95em; margin:.42em 0; font-weight:500; }
+  .m-dish-desc { font-size:.72em; color:var(--msub); margin-top:.12em; line-height:1.4; }
+
+  .m-footer { margin-top:auto; padding-top:1em; width:100%; }
+  .m-qr { display:flex; flex-direction:column; align-items:center; gap:.45em; margin-bottom:.9em; }
+  .m-qr-box { background:var(--mtile); padding:.45em; border:1px solid var(--mframe); line-height:0; }
+  .m-qr-box img, .m-qr-box canvas { display:block; }
+  .m-qr-label { font-size:.66em; letter-spacing:.2em; margin-right:-.2em; color:var(--msub); text-transform:uppercase; }
+  .m-foot-line { font-family:"Cormorant Garamond",serif; font-style:italic; font-size:.95em; letter-spacing:.12em; color:var(--mink); }
+  .m-foot-brand { font-family:"Cormorant Garamond",serif; font-weight:600; font-size:1.05em; letter-spacing:.4em; margin-right:-.4em; color:var(--mgold); margin-top:.45em; }
+  .m-foot-sub { font-family:"Cormorant Garamond",serif; font-size:.58em; letter-spacing:.44em; margin-right:-.44em; color:var(--msub); margin-top:.3em; }
+
+  @page { size: A4 portrait; margin: 0; }
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    html, body { background: white !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+    #builder { display: block !important; width: 100% !important; min-height: unset !important; }
+    .panel { display: none !important; width: 0 !important; }
+    #preview-area {
+      display: block !important;
+      background: white !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      width: 100% !important;
+      min-width: unset !important;
+      overflow: visible !important;
+      align-items: unset !important;
+    }
+    .preview-hint { display: none !important; }
+    .quote-page {
+      width: 100% !important;
+      max-width: 210mm !important;
+      min-height: 297mm !important;
+      box-shadow: none !important;
+      border: none !important;
+      margin: 0 !important;
+      padding: 10mm 10mm !important;
+      background: #f8f5ef !important;
+      font-size: 12px !important;
+      page-break-before: avoid !important;
+      page-break-inside: avoid !important;
+      page-break-after: avoid !important;
+      overflow: visible !important;
+      box-sizing: border-box !important;
+      transform: none !important;
+    }
+    .quote-page::before {
+      display: none !important;
+    }
+    .q-brand-mark { font-size: 26px !important; }
+    .q-doc-title h1 { font-size: 20px !important; }
+    .q-section-title { font-size: 13px !important; padding: 6px 10px !important; }
+    .q-section-body { padding: 6px 10px 8px !important; font-size: 12px !important; }
+    .q-section { margin-bottom: 8px !important; }
+    .menu-card h3 { font-size: 11px !important; }
+    .menu-card ul { font-size: 10px !important; }
+    .price-highlight { font-size: 14px !important; }
+    .q-main { gap: 10px !important; }
+    .menu-grid { gap: 7px !important; }
+
+    /* table menu printing: page size is injected via #page-style to match exactly */
+    body.menu-mode #preview-area { padding:0 !important; }
+    body.menu-mode .menu-page {
+      box-shadow:none !important; margin:0 !important; border:none !important;
+      page-break-after: avoid !important;
+    }
+    body.menu-mode .quote-page { display:none !important; }
+  }
+</style>
+</head>
+<body>
+<div id="builder">
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-brand">ASADORO</div>
+      <div class="panel-sub">FIRE • MEAT • EXPERIENCE</div>
+      <div class="panel-title">מחולל הצעות מחיר</div>
+    </div>
+
+    <!-- פרטי אירוע -->
+    <div class="card">
+      <div class="card-head" onclick="toggleCard(this)">פרטי האירוע<span class="ci">▲</span></div>
+      <div class="card-body">
+        <div><label>שם הלקוח</label><input type="text" id="f-client" placeholder="שם הלקוח" oninput="liveUpdate()"/></div>
+        <div class="row2">
+          <div><label>מיקום</label><input type="text" id="f-location" placeholder="עיר / כתובת" oninput="liveUpdate()"/></div>
+          <div><label>תאריך</label><input type="text" id="f-date" oninput="liveUpdate()"/></div>
+        </div>
+        <div><label>כמות סועדים</label><input type="number" id="f-guests" value="40" min="1" oninput="calcPrice()"/></div>
+      </div>
+    </div>
+
+    <!-- מסלול ומחיר -->
+    <div class="card">
+      <div class="card-head" onclick="toggleCard(this)">מסלול ומחיר<span class="ci">▲</span></div>
+      <div class="card-body">
+
+        <div>
+          <label>מסלול</label>
+          <select id="f-track" onchange="onTrackChange()">
+            <option value="Classic">ASADORO Classic – 360 ₪  |  חצי קילו · 4 סלטים · 3 פתיחות · 3 עיקריות</option>
+            <option value="Fuego" selected>ASADORO Fuego – 390 ₪  |  800 גרם · כל הסלטים · 4 פתיחות · 4 עיקריות</option>
+            <option value="Carnivore">ASADORO Carnivore – 420 ₪  |  קילו · כל הסלטים · כל הפתיחות · כל העיקריות</option>
+            <option value="custom">מותאם אישית</option>
+          </select>
+        </div>
+
+        <div><label>מחיר בסיס לסועד (₪)</label><input type="number" id="f-base" value="390" min="0" oninput="calcPrice()"/></div>
+
+        <div class="row2">
+          <div><label>הנחה ראשונה (%)</label><input type="number" id="f-d1" value="0" min="0" max="100" placeholder="0" oninput="calcPrice()"/></div>
+          <div><label>הנחה שנייה (%)</label><input type="number" id="f-d2" value="0" min="0" max="100" placeholder="0" oninput="calcPrice()"/></div>
+        </div>
+
+        <!-- עיגול – כלי פנימי בלבד, לא מוצג ללקוח -->
+        <div class="round-box">
+          <div class="round-box-title">עיגול מחיר סופי <span class="round-hint">(לשימוש פנימי בלבד – לא מוצג בהצעה)</span></div>
+          <div class="round-options">
+            <button class="round-btn" data-mode="none" onclick="setRound('none',this)">ללא עיגול</button>
+            <button class="round-btn" data-mode="down" onclick="setRound('down',this)">▼ שקל למטה</button>
+            <button class="round-btn active" data-mode="up" onclick="setRound('up',this)">▲ שקל למעלה</button>
+            <button class="round-btn" data-mode="down10" onclick="setRound('down10',this)">▼ לעשרה למטה</button>
+            <button class="round-btn" data-mode="up10" onclick="setRound('up10',this)">▲ לעשרה למעלה</button>
+            <button class="round-btn" data-mode="nearest" onclick="setRound('nearest',this)">~ קרוב ביותר</button>
+          </div>
+          <div class="round-result" id="round-result">—</div>
+        </div>
+
+        <!-- סיכום מחיר פנימי -->
+        <div class="price-summary">
+          <div class="row"><span>מחיר בסיס לסועד</span><strong id="ps-base">—</strong></div>
+          <div class="row" id="ps-disc-row" style="display:none"><span id="ps-disc-label">לאחר הנחה</span><strong id="ps-disc">—</strong></div>
+          <div class="row"><span>מחיר סופי לסועד (מוצג ללקוח)</span><strong id="ps-final">—</strong></div>
+          <div class="row" id="ps-extra-row" style="display:none"><span>תוספות קבועות</span><strong id="ps-extra">—</strong></div>
+          <div class="sep"></div>
+          <div class="total-row"><span>סה״כ לאירוע</span><span id="ps-total">—</span></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head" onclick="toggleCard(this)">הטבות ותוספות<span class="ci">▲</span></div>
+          <div class="card-body">
+            <div class="item-row" style="align-items:center">
+              <input type="checkbox" id="f-full-table" onchange="toggleExtraFields(); liveUpdate()"/>
+              <span class="item-label">עריכת שולחן קומפלט ASADORO</span>
+            </div>
+            <div class="row2 extra-fields" id="full-table-fields">
+              <div>
+                <label>מצב</label>
+                <select id="f-full-table-mode" onchange="liveUpdate()">
+                  <option value="gift">על חשבוננו</option>
+                  <option value="paid">בתוספת תשלום</option>
+                </select>
+              </div>
+              <div>
+                <label>עלות תוספת ₪</label>
+                <input type="number" id="f-full-table-price" value="0" min="0" oninput="liveUpdate()"/>
+              </div>
+            </div>
+            <div class="add-item-row" style="gap:8px; margin-top:8px;">
+              <button class="btn-add" type="button" id="btn-seasonal-fruits" onclick="toggleSeasonalFruits()">+ הוסף בוצרים פירות העונה לקינוחים</button>
+              <button class="btn-add" type="button" id="btn-house-bruschetta" onclick="toggleHouseBruschetta()">+ הוסף ברוסקטה הבית</button>
+            </div>
+            <div class="row2 extra-fields" id="seasonal-fruits-fields">
+              <div>
+                <label>מצב</label>
+                <select id="f-seasonal-fruits-mode" onchange="liveUpdate()">
+                  <option value="gift">כמתנה</option>
+                  <option value="paid">בתוספת תשלום</option>
+                </select>
+              </div>
+              <div>
+                <label>עלות תוספת ₪</label>
+                <input type="number" id="f-seasonal-fruits-price" value="0" min="0" oninput="liveUpdate()"/>
+              </div>
+            </div>
+            <div class="row2 extra-fields" id="house-bruschetta-fields">
+              <div>
+                <label>מצב</label>
+                <select id="f-house-bruschetta-mode" onchange="liveUpdate()">
+                  <option value="gift">כמתנה</option>
+                  <option value="paid">בתוספת תשלום</option>
+                </select>
+              </div>
+              <div>
+                <label>עלות תוספת ₪</label>
+                <input type="number" id="f-house-bruschetta-price" value="0" min="0" oninput="liveUpdate()"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div><label>הטבה מיוחדת (ריק = ללא)</label><textarea id="f-bonus" placeholder="3 פלטות פירות מעוצבות – מתנה מאיתנו (בשווי 1,300 ₪)" oninput="liveUpdate()"></textarea></div>
+        <div><label>הערות מחיר</label><textarea id="f-price-notes" placeholder="ההצעה כוללת מסלול מלא, חומרי גלם פרימיום..." oninput="liveUpdate()"></textarea></div>
+      </div>
+    </div>
+
+    <!-- תפריט -->
+    <div class="card">
+      <div class="card-head" onclick="toggleCard(this)">תפריט האירוע<span class="ci">▲</span></div>
+      <div class="card-body">
+        <div class="section-tabs">
+          <button class="tab-btn active" onclick="switchTab(this,'salads')">סלטים</button>
+          <button class="tab-btn" onclick="switchTab(this,'starters')">פתיחות</button>
+          <button class="tab-btn" onclick="switchTab(this,'mains')">עיקריות</button>
+          <button class="tab-btn" onclick="switchTab(this,'desserts')">קינוחים</button>
+        </div>
+        <div class="tab-content active" id="tab-salads">
+          <div class="items-list" id="list-salads"></div>
+          <div class="add-item-row"><input type="text" id="add-salads" placeholder="הוסף סלט חדש..."/><button class="btn-add" onclick="addCustomItem('salads')">+ הוסף</button></div>
+        </div>
+        <div class="tab-content" id="tab-starters">
+          <div class="items-list" id="list-starters"></div>
+          <div class="add-item-row"><input type="text" id="add-starters" placeholder="הוסף מנת פתיחה..."/><button class="btn-add" onclick="addCustomItem('starters')">+ הוסף</button></div>
+        </div>
+        <div class="tab-content" id="tab-mains">
+          <div class="items-list" id="list-mains"></div>
+          <div class="add-item-row"><input type="text" id="add-mains" placeholder="הוסף מנה עיקרית..."/><button class="btn-add" onclick="addCustomItem('mains')">+ הוסף</button></div>
+        </div>
+        <div class="tab-content" id="tab-desserts">
+          <div class="items-list" id="list-desserts"></div>
+          <div class="add-item-row"><input type="text" id="add-desserts" placeholder="הוסף קינוח..."/><button class="btn-add" onclick="addCustomItem('desserts')">+ הוסף</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- תנאים -->
+    <div class="card">
+      <div class="card-head" onclick="toggleCard(this)">תנאי הזמנה<span class="ci">▲</span></div>
+      <div class="card-body">
+        <div class="items-list" id="list-terms"></div>
+        <div class="add-item-row"><input type="text" id="add-terms" placeholder="הוסף תנאי..."/><button class="btn-add" onclick="addCustomItem('terms')">+ הוסף</button></div>
+      </div>
+    </div>
+
+    <!-- חתימות -->
+    <div class="card">
+      <div class="card-head" onclick="toggleCard(this)">חתימות<span class="ci">▲</span></div>
+      <div class="card-body row2">
+        <div><label>שמאל</label><input type="text" id="f-sig-l" value="חתימת הלקוח" oninput="liveUpdate()"/></div>
+        <div><label>ימין</label><input type="text" id="f-sig-r" value="אופק וגאס – ASADORO" oninput="liveUpdate()"/></div>
+      </div>
+    </div>
+
+    <!-- תפריט שולחן -->
+    <div class="card">
+      <div class="card-head" onclick="toggleCard(this)">🍽️ תפריט שולחן<span class="ci">▲</span></div>
+      <div class="card-body">
+        <div class="row2">
+          <div>
+            <label>סוג אירוע</label>
+            <select id="m-event" onchange="menuLive()">
+              <option value="birthday">יום הולדת</option>
+              <option value="wedding">חתונה</option>
+              <option value="barmitzvah">בר מצווה</option>
+              <option value="brit">ברית</option>
+              <option value="corporate">אירוע עסקי</option>
+              <option value="fire" selected>חוויית בשר על האש</option>
+              <option value="military">אירוע צבאי</option>
+              <option value="family">מפגש משפחתי</option>
+            </select>
+          </div>
+          <div>
+            <label>שפה</label>
+            <select id="m-lang" onchange="menuLive()">
+              <option value="he" selected>🇮🇱 עברית</option>
+              <option value="en">🇺🇸 English</option>
+              <option value="both">🌍 עברית + English</option>
+            </select>
+          </div>
+        </div>
+        <div class="row2">
+          <div>
+            <label>גודל הדפסה</label>
+            <select id="m-size" onchange="menuLive()">
+              <option value="a4p" selected>A4 לאורך (21×29.7)</option>
+              <option value="a5p">A5 לאורך (14.8×21)</option>
+              <option value="a5l">A5 לרוחב (21×14.8)</option>
+              <option value="dl">DL (10×21)</option>
+              <option value="sq">ריבוע (15×15)</option>
+            </select>
+          </div>
+          <div>
+            <label>סגנון עיצוב</label>
+            <select id="m-theme" onchange="menuLive()">
+              <option value="fine" selected>Fine Dining – קרם וזהב</option>
+              <option value="black">Luxury Black – שחור וזהב</option>
+              <option value="fire">Brazilian Fire – אש ועץ</option>
+              <option value="white">Elegant White – לבן חתונתי</option>
+            </select>
+          </div>
+        </div>
+        <div class="item-row" style="align-items:center">
+          <input type="checkbox" id="m-desc" onchange="menuLive()"/>
+          <span class="item-label">הצג תיאורי מנות</span>
+        </div>
+        <div>
+          <label>כותרת עליונה</label>
+          <select id="m-header-mode" onchange="menuLive()">
+            <option value="auto" selected>אוטומטי – "לכבוד" + שם הלקוח</option>
+            <option value="custom">טקסט אישי (חופשי)</option>
+            <option value="none">ללא כותרת אישית</option>
+          </select>
+        </div>
+        <div>
+          <label>טקסט אישי – שורה ראשונה גדולה, שורות נוספות קטנות יותר</label>
+          <textarea id="m-custom-text" placeholder="חוגגים בר מצווה לאורי! 🎉&#10;באהבה, משפחת לוי" oninput="onCustomText()"></textarea>
+        </div>
+        <div>
+          <label>גודל טקסט בתפריט</label>
+          <div class="scale-row">
+            <input type="range" id="m-scale" min="75" max="135" value="100" oninput="document.getElementById('m-scale-val').textContent=this.value+'%'; menuLive()"/>
+            <span class="scale-val" id="m-scale-val">100%</span>
+          </div>
+        </div>
+        <div class="row2">
+          <div>
+            <label>קוד QR</label>
+            <select id="m-qr" onchange="menuLive()">
+              <option value="off" selected>כבוי</option>
+              <option value="instagram">אינסטגרם</option>
+              <option value="website">אתר</option>
+              <option value="gallery">גלריה</option>
+            </select>
+          </div>
+          <div>
+            <label>קישור ל-QR</label>
+            <input type="text" id="m-qr-url" placeholder="https://..." oninput="menuLive()"/>
+          </div>
+        </div>
+        <div class="round-hint">התפריט נבנה אוטומטית מהמנות שסומנו בהצעת המחיר – שם הלקוח, התאריך והמסלול נמשכים מלמעלה.</div>
+      </div>
+    </div>
+
+    <button class="btn-generate" onclick="generateQuote()">📄 צור הצעת מחיר</button>
+    <button class="btn-generate btn-menu" onclick="generateMenu()">🍽️ צור תפריט שולחן</button>
+    <button class="btn-print" onclick="window.print()">🖨️ הדפס / שמור PDF</button>
+  </div>
+
+  <div id="preview-area">
+    <div class="preview-hint">← מלא פרטים ולחץ "צור הצעת מחיר" או "צור תפריט שולחן"</div>
+  </div>
+</div>
+
+<script>
+const MENU_DB = {
+  salads: [
+    { name:'סלט חסות והדרים', desc:'מיקס חסות טריות, בצל סגול, תפוח סמיט פריך, פקאן קלוי ורוטב ויניגרט הדרים.', checked:false },
+    { name:'חציל בלאדי עם טחינה', desc:'חציל על האש עם טחינה גולמית ושמן זית.', checked:true },
+    { name:"קרפצ'יו סלק", desc:'פרוסות סלק דקיקות עם רוטב בלסמי מצומצם.', checked:false },
+    { name:'טרטר פילה בקר', desc:"פרוסות דקות של פילה בקר נא, מתובלות בשמן זית, רוטב בלסמי וצ'ימיצ'ורי.", checked:false },
+    { name:'תפוחי אדמה ובטטה אסאדורו', desc:'תפוחי אדמה ובטטה צלויים במדורה, רכים מבפנים ופריכים מבחוץ.', checked:true },
+    { name:'סלט ירוקים ASADORO', desc:'כוסברה, פטרוזיליה, נענע וסלרי, בשילוב קשיו, פקאן, חמוציות ורוטב רימונים.', checked:true },
+    { name:'סלט אסאדורו', desc:'חסה, עגבניות שרי, גמבות, פטריות ובצל סגול, מתובלים בלימון ושמן זית.', checked:true },
+    { name:'חומוס הבית', desc:'חומוס עבודת יד.', checked:false },
+  ],
+  starters: [
+    { name:'עראיס 5 נתחים – ASADORO', desc:'פיתה קריספית ממולאת בתערובת אנטריקוט, אסאדו, אונטריב, צלעות ושומן פיקניה – מוגשת ברבעים עם טחינה.', checked:true },
+    { name:'המבורגר אסאדורו', desc:'קציצת אנטריקוט ושומן פיקניה בעבודת יד, בלחמניית בריוש ובחסה לאליק – מוגש בחצאים.', checked:true },
+    { name:'נקניקיית סנסיצה איטלקית', desc:'נקניקייה דרום-איטלקית בעבודת יד, חרפרפה ומלאת טעם.', checked:true },
+    { name:'קרואסון אסאדורו', desc:'אסאדו מעושן 12 שעות, מוגש בתוך קרואסון חם ורך.', checked:true },
+    { name:'סטייק פרגית אסאדורו', desc:'סטייק פרגית עסיסי במרינדת ראב ASADORO – תערובת 15 תבלינים ארומטיים, עם חסה קיסר וחצאי פרנות.', checked:false },
+  ],
+  mains: [
+    { name:'Ribeye – ASADORO', desc:'אנטריקוט מבית Devesa, מאזור הצלעות (6–12), בעל מרבלינג עשיר וטעם עמוק במיוחד.', checked:true },
+    { name:'Picanha – ASADORO', desc:'נתח פיקניה מחלק הירך העליון, עם שכבת שומן טבעית המעניקה טעם עשיר ומרקם עסיסי.', checked:true },
+    { name:'New York Steak – ASADORO', desc:'סינטה פרימיום, רזה ועדינה, בטעם בשרי מודגש ונקי.', checked:true },
+    { name:'Denver Cut', desc:'נתח אמריקאי קלאסי מהכתף העליונה, בעל מרבלינג מרשים וטעם עמוק.', checked:true },
+    { name:'Tomahawk – Prime Rib', desc:'סטייק פריים ריב ענק על העצם, בעל שיוש עמוק וטעם עשיר במיוחד.', checked:false },
+    { name:'Filet Mignon (Calf)', desc:'פילה מעגל צעיר, רך ועדין, בעל טעם נקי ומרקם אלגנטי יוצא דופן.', checked:false },
+    { name:'סוכריות הבית – ASADORO', desc:'פילה עגלה מגולגל עם שומן פרה, צרוב על האש ומוגש עם פיסטוק מעל.', checked:false },
+    { name:'Lamb Chops', desc:'צלעות טלה איכותיות בעשייה מדויקת, בעלות טעם עשיר ומרקם רך.', checked:false },
+    { name:"Butcher's Cut", desc:'נתח מאזור הכתף, בעל טעם עמוק ומרקם עסיסי – מהנתחים שהקצבים שמרו לעצמם.', checked:false },
+    { name:'Foie Gras (+25 ₪ לסועד)', desc:"כבד אווז פרימיום מבית Progres, סוג א', צרוב בעדינות – בתוספת 25 ₪ לסועד.", checked:false },
+  ],
+  desserts: [
+    { name:'פלטות פירות מעוצבות של אסאדורו', desc:'פלטות פירות טריים ומעוצבים, בעיצוב ייחודי ומרהיב – נמכרות בנפרד.', checked:false },
+  ],
+  terms: [
+    { name:'מקדמה: 15% מסך העסקה בעת סגירת האירוע, לשריון התאריך.', desc:'', checked:true },
+    { name:'יתרה: יתרת התשלום תשולם במזומן ביום האירוע.', desc:'', checked:true },
+    { name:'ביטול: עד 48 שעות לפני האירוע – החזר מלא של המקדמה.', desc:'', checked:true },
+    { name:'שינוי כמות: יש לעדכן כמות סופית עד 48 שעות לפני האירוע.', desc:'', checked:true },
+    { name:'השירות אינו כולל טיפ לצוות – אין חובה.', desc:'', checked:true },
+  ]
+};
+
+const TRACK_PRICES = { Classic:360, Fuego:390, Carnivore:420, custom:null };
+const EXTRA_ITEMS = {
+  seasonalFruits: {
+    name:'בוצרים פירות העונה',
+    desc:'פירות העונה טריים ומשובחים, מוגשים כטאץ\' קינוחים מהודר.',
+    checked:true
+  },
+  houseBruschetta: {
+    name:'ברוסקטה ביתית קלויה, ריבת בצל מקורמלת, כבד אווז צרוב וסוכריות הבית',
+    desc:'ברוסקטה פריכה עם תוספת כבד אווז צרוב, ריבת בצל מקורמלת וקינוח ביתי מתוק.',
+    checked:true
+  }
+};
+const TRACK_DEFAULTS = {
+  Classic:   { salads:[1,4,5,6], starters:[0,1,2], mains:[0,1,2] },
+  Fuego:     { salads:[0,1,4,5,6], starters:[0,1,2,3], mains:[0,1,2,3] },
+  Carnivore: { salads:[0,1,2,3,4,5,6,7], starters:[0,1,2,3,4], mains:[0,1,2,3,4,5,6,7,8] },
+  custom: null
+};
+
+let items = {};
+['salads','starters','mains','desserts','terms'].forEach(cat => {
+  items[cat] = MENU_DB[cat].map(i => ({...i}));
+});
+let roundMode = 'up';
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('f-date').value = new Date().toLocaleDateString('he-IL');
+  ['salads','starters','mains','desserts','terms'].forEach(renderList);
+  applyTrackDefaults('Fuego');
+  calcPrice();
+  document.querySelectorAll('[id^="add-"]').forEach(inp => {
+    inp.addEventListener('keydown', e => { if(e.key==='Enter') addCustomItem(inp.id.replace('add-','')); });
+  });
+});
+
+function toggleCard(head) {
+  const body = head.nextElementSibling;
+  const icon = head.querySelector('.ci');
+  body.classList.toggle('collapsed');
+  icon.textContent = body.classList.contains('collapsed') ? '▼' : '▲';
+}
+
+function switchTab(btn, name) {
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+function renderList(cat) {
+  const container = document.getElementById('list-'+cat);
+  container.innerHTML = '';
+  items[cat].forEach((item, i) => {
+    const row = document.createElement('div'); row.className='item-row';
+    const cb = document.createElement('input'); cb.type='checkbox'; cb.checked=item.checked;
+    cb.onchange = () => { items[cat][i].checked=cb.checked; liveUpdate(); };
+    const wrap = document.createElement('div'); wrap.style.flex='1';
+    const lbl = document.createElement('div'); lbl.className='item-label'; lbl.textContent=item.name;
+    wrap.appendChild(lbl);
+    if (item.desc) {
+      const d = document.createElement('div'); d.className='item-desc-small'; d.textContent=item.desc;
+      wrap.appendChild(d);
+    }
+    const rm = document.createElement('button'); rm.className='btn-remove'; rm.textContent='✕';
+    rm.onclick = () => { items[cat].splice(i,1); renderList(cat); liveUpdate(); };
+    row.appendChild(cb); row.appendChild(wrap); row.appendChild(rm);
+    container.appendChild(row);
+  });
+}
+
+function addCustomItem(cat) {
+  const inp = document.getElementById('add-'+cat);
+  const val = inp.value.trim(); if(!val) return;
+  items[cat].push({ name:val, desc:'', checked:true });
+  inp.value=''; renderList(cat); liveUpdate();
+}
+
+function applyTrackDefaults(track) {
+  const def = TRACK_DEFAULTS[track];
+  if (!def) return;
+  ['salads','starters','mains'].forEach(cat => {
+    if (def[cat]) { items[cat].forEach((item,i) => { item.checked = def[cat].includes(i); }); renderList(cat); }
+  });
+}
+
+function onTrackChange() {
+  const track = document.getElementById('f-track').value;
+  const price = TRACK_PRICES[track];
+  if (price !== null) document.getElementById('f-base').value = price;
+  applyTrackDefaults(track);
+  calcPrice();
+}
+
+function toggleExtraFields() {
+  const active = document.getElementById('f-full-table').checked;
+  document.getElementById('full-table-fields').classList.toggle('active', active);
+}
+function toggleSeasonalFruits() {
+  const section = document.getElementById('seasonal-fruits-fields');
+  const active = !section.classList.contains('active');
+  section.classList.toggle('active', active);
+  document.getElementById('btn-seasonal-fruits').textContent = active ? '– הסר בוצרים פירות העונה' : '+ הוסף בוצרים פירות העונה לקינוחים';
+  const idx = items.desserts.findIndex(i => i.name === EXTRA_ITEMS.seasonalFruits.name);
+  if (active && idx === -1) {
+    items.desserts.push({...EXTRA_ITEMS.seasonalFruits});
+  } else if (!active && idx !== -1) {
+    items.desserts.splice(idx,1);
+  }
+  renderList('desserts');
+  liveUpdate();
+}
+function toggleHouseBruschetta() {
+  const section = document.getElementById('house-bruschetta-fields');
+  const active = !section.classList.contains('active');
+  section.classList.toggle('active', active);
+  document.getElementById('btn-house-bruschetta').textContent = active ? '– הסר ברוסקטה הבית' : '+ הוסף ברוסקטה הבית';
+  const idx = items.mains.findIndex(i => i.name === EXTRA_ITEMS.houseBruschetta.name);
+  if (active && idx === -1) {
+    items.mains.push({...EXTRA_ITEMS.houseBruschetta});
+  } else if (!active && idx !== -1) {
+    items.mains.splice(idx,1);
+  }
+  renderList('mains');
+  liveUpdate();
+}
+function setRound(mode, btn) {
+  roundMode = mode;
+  document.querySelectorAll('.round-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  calcPrice();
+}
+
+function doRound(val) {
+  switch(roundMode) {
+    case 'none':    return val;
+    case 'down':    return Math.floor(val);
+    case 'up':      return Math.ceil(val);
+    case 'down10':  return Math.floor(val/10)*10;
+    case 'up10':    return Math.ceil(val/10)*10;
+    case 'nearest': return Math.round(val);
+    default:        return val;
+  }
+}
+
+function calcPrice() {
+  const base   = parseFloat(document.getElementById('f-base').value)||0;
+  const d1     = parseFloat(document.getElementById('f-d1').value)||0;
+  const d2     = parseFloat(document.getElementById('f-d2').value)||0;
+  const guests = parseInt(document.getElementById('f-guests').value)||0;
+  const fullTableChecked = document.getElementById('f-full-table').checked;
+  const fullTableMode = document.getElementById('f-full-table-mode').value;
+  const fullTablePrice = parseFloat(document.getElementById('f-full-table-price').value)||0;
+  const seasonalAdded = document.getElementById('seasonal-fruits-fields').classList.contains('active');
+  const seasonalMode = document.getElementById('f-seasonal-fruits-mode').value;
+  const seasonalPrice = parseFloat(document.getElementById('f-seasonal-fruits-price').value)||0;
+  const bruschettaAdded = document.getElementById('house-bruschetta-fields').classList.contains('active');
+  const bruschettaMode = document.getElementById('f-house-bruschetta-mode').value;
+  const bruschettaPrice = parseFloat(document.getElementById('f-house-bruschetta-price').value)||0;
+
+  const raw     = base * (1-d1/100) * (1-d2/100);
+  const rounded = doRound(raw);
+  const extrasTotal = (fullTableChecked && fullTableMode === 'paid' ? fullTablePrice : 0)
+                    + (seasonalAdded && seasonalMode === 'paid' ? seasonalPrice : 0)
+                    + (bruschettaAdded && bruschettaMode === 'paid' ? bruschettaPrice : 0);
+  const total   = rounded * guests + extrasTotal;
+
+  // update internal summary
+  document.getElementById('ps-base').textContent = base.toLocaleString()+' ₪';
+  const hasDisc = d1>0||d2>0;
+  document.getElementById('ps-disc-row').style.display = hasDisc ? 'flex' : 'none';
+  if (hasDisc) {
+    const discLabel = [d1>0?d1+'%':'', d2>0?d2+'%':''].filter(Boolean).join(' + ');
+    document.getElementById('ps-disc-label').textContent = 'לאחר הנחה ('+discLabel+')';
+    document.getElementById('ps-disc').textContent = raw.toFixed(2)+' ₪';
+  }
+  const hasExtras = extrasTotal > 0;
+  document.getElementById('ps-extra-row').style.display = hasExtras ? 'flex' : 'none';
+  document.getElementById('ps-extra').textContent = extrasTotal.toLocaleString()+' ₪';
+  document.getElementById('ps-final').textContent  = rounded.toLocaleString()+' ₪';
+  document.getElementById('ps-total').textContent  = total.toLocaleString()+' ₪';
+
+  // rounding quick-view
+  const modeLabel = {none:'ללא',down:'▼ שקל',up:'▲ שקל',down10:'▼ ×10',up10:'▲ ×10',nearest:'~'};
+  document.getElementById('round-result').innerHTML =
+    `גולמי: ${raw.toFixed(2)} ₪  →  <strong>${rounded.toLocaleString()} ₪</strong> (${modeLabel[roundMode]||roundMode})`;
+
+  liveUpdate();
+}
+
+let liveTimer = null;
+function liveUpdate() {
+  clearTimeout(liveTimer);
+  liveTimer = setTimeout(() => {
+    const pv = document.getElementById('preview-area');
+    if (pv.querySelector('.menu-page')) generateMenu();
+    else if (pv.querySelector('.quote-page')) generateQuote();
+  }, 300);
+}
+function menuLive() {
+  clearTimeout(liveTimer);
+  liveTimer = setTimeout(() => {
+    if (document.getElementById('preview-area').querySelector('.menu-page')) generateMenu();
+  }, 200);
+}
+function onCustomText() {
+  if (document.getElementById('m-custom-text').value.trim())
+    document.getElementById('m-header-mode').value = 'custom';
+  menuLive();
+}
+
+function generateQuote() {
+  document.body.classList.remove('menu-mode');
+  document.getElementById('page-style').textContent = '@page { size:A4 portrait; margin:10mm; }';
+  const client   = document.getElementById('f-client').value  || '—';
+  const location = document.getElementById('f-location').value|| '—';
+  const date     = document.getElementById('f-date').value    || '—';
+  const guests   = parseInt(document.getElementById('f-guests').value)||0;
+  const track    = document.getElementById('f-track').value;
+  const base     = parseFloat(document.getElementById('f-base').value)||0;
+  const d1       = parseFloat(document.getElementById('f-d1').value)||0;
+  const d2       = parseFloat(document.getElementById('f-d2').value)||0;
+  const bonus    = document.getElementById('f-bonus').value.trim();
+  const priceNotes = document.getElementById('f-price-notes').value.trim() ||
+    'ההצעה כוללת מסלול מלא, חומרי גלם פרימיום, עבודה מוקפדת וחוויית אירוח ברמה הגבוהה ביותר.';
+  const sigL = document.getElementById('f-sig-l').value||'חתימת הלקוח';
+  const sigR = document.getElementById('f-sig-r').value||'אופק וגאס – ASADORO';
+  const fullTableChecked = document.getElementById('f-full-table').checked;
+  const fullTableMode = document.getElementById('f-full-table-mode').value;
+  const fullTablePrice = parseFloat(document.getElementById('f-full-table-price').value)||0;
+  const seasonalAdded = document.getElementById('seasonal-fruits-fields').classList.contains('active');
+  const seasonalMode = document.getElementById('f-seasonal-fruits-mode').value;
+  const seasonalPrice = parseFloat(document.getElementById('f-seasonal-fruits-price').value)||0;
+  const bruschettaAdded = document.getElementById('house-bruschetta-fields').classList.contains('active');
+  const bruschettaMode = document.getElementById('f-house-bruschetta-mode').value;
+  const bruschettaPrice = parseFloat(document.getElementById('f-house-bruschetta-price').value)||0;
+
+  const raw     = base*(1-d1/100)*(1-d2/100);
+  const finalPer = doRound(raw);   // ← מחיר עגול, ללא הצגת תהליך
+  const extrasTotal = (fullTableChecked && fullTableMode === 'paid' ? fullTablePrice : 0)
+                    + (seasonalAdded && seasonalMode === 'paid' ? seasonalPrice : 0)
+                    + (bruschettaAdded && bruschettaMode === 'paid' ? bruschettaPrice : 0);
+  const total   = finalPer * guests + extrasTotal;
+
+  const trackNames = { Classic:'ASADORO Classic', Fuego:'ASADORO Fuego', Carnivore:'ASADORO Carnivore', custom:'מותאם אישית' };
+  const trackName = trackNames[track]||track;
+
+  // ---- מה הלקוח רואה: מחיר בסיס → מחיר סופי (נקי, ללא עיגול גלוי) ----
+  let priceHtml = `<div class="price-box">`;
+  priceHtml += `<div class="price-card"><strong>מסלול ${trackName}:</strong> ${base.toLocaleString()} ₪ לסועד</div>`;
+  if (d1>0||d2>0) {
+    const discLabel = [d1>0?d1+'%':'', d2>0?d2+'%':''].filter(Boolean).join(' + ');
+    priceHtml += `<div class="price-card"><strong>לאחר הנחה (${discLabel}):</strong> ${finalPer.toLocaleString()} ₪ לסועד</div>`;
+  }
+  priceHtml += `</div>`;
+  priceHtml += `<div class="price-box">
+    <div class="price-card"><strong>כמות:</strong> ${guests} סועדים</div>
+    <div class="price-card"><strong>מחיר לסועד:</strong> ${finalPer.toLocaleString()} ₪</div>
+  </div>`;
+  if (fullTableChecked || seasonalAdded || bruschettaAdded) {
+    const extraLines = [];
+    if (fullTableChecked) extraLines.push(fullTableMode === 'paid'
+      ? `עריכת שולחן קומפלט ASADORO: +${fullTablePrice.toLocaleString()} ₪`
+      : 'עריכת שולחן קומפלט ASADORO: על חשבוננו');
+    if (seasonalAdded) extraLines.push(seasonalMode === 'paid'
+      ? `בוצרים פירות העונה: +${seasonalPrice.toLocaleString()} ₪`
+      : 'בוצרים פירות העונה: כמתנה');
+    if (bruschettaAdded) extraLines.push(bruschettaMode === 'paid'
+      ? `ברוסקטה הבית: +${bruschettaPrice.toLocaleString()} ₪`
+      : 'ברוסקטה הבית: כמתנה');
+    priceHtml += `<p>${extraLines.join(' • ')}</p>`;
+  }
+  if (extrasTotal > 0) {
+    priceHtml += `<div class="price-box"><div class="price-card"><strong>תוספות קבועות:</strong> ${extrasTotal.toLocaleString()} ₪</div></div>`;
+  }
+  priceHtml += `<p class="price-highlight">סה״כ עבור האירוח: ${total.toLocaleString()} ₪</p>`;
+  if (bonus) priceHtml += `<p>${bonus}</p>`;
+  priceHtml += `<p class="q-notes">${priceNotes}</p>`;
+
+  const sel = cat => items[cat].filter(i=>i.checked);
+  const salads   = sel('salads');
+  const starters = sel('starters');
+  const mains    = sel('mains');
+  const desserts = sel('desserts');
+  const terms    = sel('terms');
+
+  let menuHtml = '';
+  if (salads.length)   menuHtml += mkCard('סלטי הבית', salads);
+  if (starters.length) menuHtml += mkCard('מנות בופה', starters);
+  if (mains.length)    menuHtml += mkCard('מנות עיקריות', mains);
+  if (desserts.length) menuHtml += mkCard('קינוחים', desserts);
+
+  const termsHtml = terms.map(t=>`<li>${t.name}</li>`).join('');
+
+  document.getElementById('preview-area').innerHTML = `
+  <div class="quote-page">
+    <div class="q-top-accent"></div>
+    <div class="q-brand"><div class="q-brand-mark">ASADORO</div><div class="q-brand-sub">FIRE • MEAT • EXPERIENCE</div></div>
+    <div class="q-doc-title"><h1>הצעת מחיר לאירוע</h1><p>חוויית אירוח מוקפדת בהתאמה אישית</p></div>
+    <div class="q-main">
+      <div>
+        <div class="q-section">
+          <div class="q-section-title">פרטי האירוע</div>
+          <div class="q-section-body">
+            <p><b>שם הלקוח:</b> ${client}</p>
+            <p><b>מיקום האירוע:</b> ${location}</p>
+            <p><b>תאריך האירוע:</b> ${date}</p>
+            <p><b>כמות סועדים:</b> כ-${guests} איש</p>
+            <p><b>מסלול:</b> ${trackName}</p>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-section-title">עלות האירוע</div>
+          <div class="q-section-body">${priceHtml}</div>
+        </div>
+        <div class="q-section">
+          <div class="q-section-title">תנאי הזמנה ותשלום</div>
+          <div class="q-section-body"><ul>${termsHtml}</ul></div>
+        </div>
+        <div class="q-section">
+          <div class="q-section-title">השירות כולל</div>
+          <div class="q-section-body"><ul>
+            <li>הגעה והקמת עמדת עבודה במקום האירוע</li>
+            <li>הכנה וצלייה במקום האירוע</li>
+            <li>הגשה מלאה לאורך האירוע</li>
+            <li>תפעול מלא של קצב ההגשה מטעם ASADORO</li>
+          </ul></div>
+        </div>
+      </div>
+      <div>
+        <div class="q-section">
+          <div class="q-section-title">תפריט האירוע</div>
+          <div class="q-section-body"><div class="menu-grid">${menuHtml}</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="q-signatures">
+      <div class="q-sign-box"><div class="q-sign-line"></div>${sigL}</div>
+      <div class="q-sign-box"><div class="q-sign-line"></div>${sigR}</div>
+    </div>
+    <div class="q-footer">ASADORO • חוויית בשר פרימיום</div>
+  </div>`;
+}
+
+/* ============ TABLE MENU GENERATOR ============ */
+const EVENT_TYPES = {
+  birthday:   { he:'תפריט יום הולדת',      en:'Birthday Menu' },
+  wedding:    { he:'תפריט חתונה',          en:'Wedding Menu' },
+  barmitzvah: { he:'תפריט בר מצווה',       en:'Bar Mitzvah Menu' },
+  brit:       { he:'תפריט חגיגה',          en:'Celebration Menu' },
+  corporate:  { he:'ארוחת ערב עסקית',      en:'Corporate Dinner' },
+  fire:       { he:'חוויית בשר על האש',    en:'Fire Meat Experience' },
+  military:   { he:'ערב הוקרה',            en:'Military Appreciation Dinner' },
+  family:     { he:'ארוחה משפחתית',        en:'Family Dinner' },
+};
+const CAT_TITLES = {
+  salads:   { he:'סלטי הבית',     en:'House Salads' },
+  starters: { he:'מנות פתיחה',    en:'Starters' },
+  mains:    { he:'מנות עיקריות',  en:'Main Courses' },
+  desserts: { he:'קינוחים',       en:'Desserts' },
+};
+const HONOR   = { he:'לכבוד', en:'Prepared Especially For' };
+const QR_LABELS = {
+  instagram: { he:'עקבו אחרינו באינסטגרם', en:'Follow us on Instagram' },
+  website:   { he:'בקרו באתר שלנו',        en:'Visit our Website' },
+  gallery:   { he:'גלריית האירוע',         en:'Event Gallery' },
+};
+const MENU_SIZES = { a4p:[210,297], a5p:[148,210], a5l:[210,148], dl:[100,210], sq:[150,150] };
+const FLAME_SVG = `<svg viewBox="0 0 20 26" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M10 0c1.2 4.4 5.6 6.6 7.4 10.4 1.9 4-.1 9.3-4 11.6.9-2.2.5-4.8-1.2-6.4.3 2.2-.7 4.3-2.6 5.3-1.5.8-2.4 2.1-2.3 3.8-3.9-1.7-6.3-6-5.6-10.3C2.4 10 6 7.7 7.4 3.9c.5 1.6 1.6 2.9 3 3.7C10 5.2 9.6 2.5 10 0z"/></svg>`;
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function cleanDishName(name){
+  // strip internal price markers like "(+25 ₪ לסועד)" – prices never appear on a table menu
+  return name.replace(/\s*\([^)]*₪[^)]*\)/g,'').trim();
+}
+
+function generateMenu() {
+  const client  = document.getElementById('f-client').value.trim();
+  const date    = document.getElementById('f-date').value.trim();
+  const track   = document.getElementById('f-track').value;
+  const evType  = document.getElementById('m-event').value;
+  const lang    = document.getElementById('m-lang').value;   // he | en | both
+  const size    = document.getElementById('m-size').value;
+  const theme   = document.getElementById('m-theme').value;
+  const showDesc= document.getElementById('m-desc').checked;
+  const qrMode  = document.getElementById('m-qr').value;
+  const qrUrl   = document.getElementById('m-qr-url').value.trim();
+  const customText = document.getElementById('m-custom-text').value.trim();
+  let headerMode = document.getElementById('m-header-mode').value;   // auto | custom | none
+  if (headerMode === 'custom' && !customText) headerMode = 'none';
+  const scale   = (parseInt(document.getElementById('m-scale').value) || 100) / 100;
+
+  const dir = lang === 'en' ? 'ltr' : 'rtl';
+  const primary = k => lang === 'en' ? k.en : k.he;
+
+  /* header */
+  let head = `
+    <div class="m-brand">ASADORO</div>
+    <div class="m-brand-sub">FIRE • MEAT • EXPERIENCE</div>
+    <div class="m-div">${FLAME_SVG}</div>`;
+
+  if (lang === 'he') head += `<div class="m-menu-word m-menu-word-he">תפריט</div>`;
+  else if (lang === 'en') head += `<div class="m-menu-word">MENU</div>`;
+  else head += `<div class="m-menu-word">MENU</div><div class="m-menu-word-sub">תפריט</div>`;
+
+  if (headerMode === 'custom') {
+    const lines = customText.split('\n').map(l => l.trim()).filter(Boolean);
+    if (lines.length) {
+      head += `<div class="m-custom">${esc(lines[0])}</div>`;
+      lines.slice(1).forEach(l => head += `<div class="m-custom-sub">${esc(l)}</div>`);
+    }
+  } else if (headerMode === 'auto' && client) {
+    if (evType === 'wedding') {
+      head += `<div class="m-honor-name big" style="margin-top:1em">${esc(client)}</div>`;
+    } else {
+      head += `<div class="m-honor">${primary(HONOR)}</div><div class="m-honor-name">${esc(client)}</div>`;
+    }
+  }
+
+  const ev = EVENT_TYPES[evType];
+  if (headerMode !== 'custom') {
+    head += `<div class="m-event-title">${primary(ev)}</div>`;
+    if (lang === 'both') head += `<div class="m-event-title-en">${ev.en}</div>`;
+  }
+  if (date) head += `<div class="m-date">${esc(date)}</div>`;
+  const trackNames = { Classic:'ASADORO Classic', Fuego:'ASADORO Fuego', Carnivore:'ASADORO Carnivore' };
+  if (trackNames[track]) head += `<div class="m-track">${trackNames[track]}</div>`;
+  head += `<div class="m-div small">${FLAME_SVG}</div>`;
+
+  /* categories – exactly the dishes selected in the quotation builder */
+  let cats = '';
+  ['salads','starters','mains','desserts'].forEach(cat => {
+    const selected = items[cat].filter(i => i.checked);
+    if (!selected.length) return;
+    const T = CAT_TITLES[cat];
+    let block = `<div class="m-cat">`;
+    block += `<div class="m-cat-title${lang==='en' ? ' m-latin' : ''}">${primary(T)}</div>`;
+    if (lang === 'both') block += `<div class="m-cat-sub">${T.en}</div>`;
+    block += `<div class="m-cat-rule"></div>`;
+    selected.forEach(i => {
+      block += `<div class="m-dish">${esc(cleanDishName(i.name))}`;
+      if (showDesc && i.desc) block += `<div class="m-dish-desc">${esc(i.desc)}</div>`;
+      block += `</div>`;
+    });
+    block += `</div>`;
+    cats += block;
+  });
+
+  /* footer */
+  let footer = `<div class="m-footer">`;
+  if (qrMode !== 'off' && qrUrl) {
+    footer += `<div class="m-qr"><div class="m-qr-box" id="m-qr-target"></div>
+               <div class="m-qr-label">${primary(QR_LABELS[qrMode])}</div></div>`;
+  }
+  footer += `
+    <div class="m-foot-line">Enjoy The Fire Experience</div>
+    <div class="m-foot-brand">ASADORO</div>
+    <div class="m-foot-sub">FIRE • MEAT • EXPERIENCE</div>
+  </div>`;
+
+  document.getElementById('preview-area').innerHTML = `
+    <div class="menu-page theme-${theme} size-${size}" dir="${dir}">
+      <div class="m-frame"></div>
+      <div class="m-inner">${head}<div class="m-cats">${cats}</div>${footer}</div>
+    </div>`;
+
+  /* print setup: page matches the chosen size exactly – no breaks, no clipping */
+  document.body.classList.add('menu-mode');
+  const [w,h] = MENU_SIZES[size];
+  document.getElementById('page-style').textContent = `@page { size:${w}mm ${h}mm; margin:0; }`;
+
+  /* QR code */
+  const qrTarget = document.getElementById('m-qr-target');
+  if (qrTarget) {
+    const px = { a4p:88, a5p:70, a5l:62, dl:56, sq:60 }[size] || 70;
+    if (typeof QRCode !== 'undefined') {
+      new QRCode(qrTarget, { text:qrUrl, width:px, height:px, colorDark:'#1a1510', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.M });
+    } else {
+      qrTarget.textContent = qrUrl;
+      qrTarget.style.cssText += 'font-size:9px;line-height:1.2;max-width:120px;word-break:break-all;padding:6px;';
+    }
+  }
+
+  fitMenu(scale);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => fitMenu(scale));
+}
+
+/* shrink typography until everything fits on one page – never clip, never break */
+function fitMenu(scale) {
+  const inner = document.querySelector('.menu-page .m-inner');
+  if (!inner) return;
+  scale = scale || (parseInt(document.getElementById('m-scale').value) || 100) / 100;
+  inner.style.fontSize = '';
+  let px = parseFloat(getComputedStyle(inner).fontSize) * scale;
+  inner.style.fontSize = px + 'px';
+  const min = px * 0.5;
+  let guard = 80;
+  while (inner.scrollHeight > inner.clientHeight + 1 && px > min && guard--) {
+    px -= 0.35;
+    inner.style.fontSize = px + 'px';
+  }
+}
+
+function mkCard(title, arr) {
+  const lis = arr.map(i => {
+    let t = `<strong>${i.name}</strong>`;
+    if (i.desc) t += ` <span style="font-weight:normal;color:#6e6558;font-size:10.5px;">– ${i.desc}</span>`;
+    return `<li>${t}</li>`;
+  }).join('');
+  return `<div class="menu-card"><h3>${title}</h3><ul>${lis}</ul></div>`;
+}
+</script>
+</body>
+</html>
