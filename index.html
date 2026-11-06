@@ -294,6 +294,49 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
     }
     body.menu-mode .quote-page { display:none !important; }
   }
+
+/* ===== ASADORO premium agreement page refresh ===== */
+.quote-page {
+  background:
+    radial-gradient(circle at 12% 7%, rgba(176,138,60,.08), transparent 23%),
+    radial-gradient(circle at 88% 92%, rgba(176,138,60,.06), transparent 25%),
+    var(--paper);
+  padding: 13mm 14mm 12mm;
+}
+.quote-page::before { inset: 6.5mm; border-width: 1px; }
+.q-top-accent { height: 3px; margin-bottom: 10px; }
+.q-brand { border-bottom: 0; margin-bottom: 4px; padding: 5px 0 8px; }
+.q-brand-mark { font-family:"Cormorant Garamond","Georgia",serif; font-size: 36px; letter-spacing: 7px; margin-right:7px; font-weight:600; }
+.q-brand-sub { font-family:"Cormorant Garamond","Georgia",serif; letter-spacing:4px; font-size:10px; }
+.q-doc-title { margin: 5px 0 18px; padding: 13px 0 15px; border-top:1px solid rgba(176,138,60,.35); border-bottom:1px solid rgba(176,138,60,.35); }
+.q-kicker { font-family:"Cormorant Garamond","Georgia",serif; color:var(--gold-dark); font-size:9px; letter-spacing:3px; margin-bottom:5px; }
+.q-doc-title h1 { font-size:25px; letter-spacing:.3px; }
+.q-doc-title p { font-size:11px; margin-top:5px; }
+.q-main { display:grid !important; grid-template-columns:1fr 1fr !important; gap:11px 12px !important; }
+.q-main > .q-section { margin:0; border:1px solid rgba(176,138,60,.42); background:rgba(255,255,255,.38); box-shadow:0 2px 10px rgba(71,52,20,.035); }
+.q-main > .q-section:nth-child(1), .q-main > .q-section:nth-child(2) { grid-column:1 / -1; }
+.q-section-title { padding:7px 11px; font-size:13px; letter-spacing:.2px; background:linear-gradient(90deg,rgba(176,138,60,.15),rgba(176,138,60,.025)); }
+.q-section-body { padding:9px 12px 10px; line-height:1.55; }
+.q-main > .q-section:nth-child(1) .q-section-body { display:grid; grid-template-columns:1fr 1fr; column-gap:30px; row-gap:1px; }
+.q-main > .q-section:nth-child(1) .q-section-body p { padding:3px 0; margin:0; border-bottom:1px dotted rgba(176,138,60,.22); }
+.q-main > .q-section:nth-child(2) { background:linear-gradient(135deg,rgba(255,255,255,.58),rgba(239,230,211,.48)); }
+.q-main > .q-section:nth-child(2) .q-section-title { background:var(--gold-dark); color:#fffaf0; border-bottom:0; }
+.q-main > .q-section:nth-child(2) .price-card { background:rgba(255,255,255,.64); border-color:rgba(176,138,60,.32); }
+.q-main::after { content:"אישור ההצעה מהווה אישור לתנאי ההזמנה והשירות המפורטים לעיל."; grid-column:1 / -1; text-align:center; color:var(--muted); font-size:10.5px; padding:9px 8px 2px; letter-spacing:.1px; }
+.q-signatures { margin-top:8px; padding:14px 18px 0; gap:46px; border-top:1px solid rgba(176,138,60,.45); }
+.q-sign-box { font-size:11px; color:var(--muted); }
+.q-sign-line { height:28px; border-bottom:1px solid var(--gold-dark); }
+.q-footer { margin-top:14px; padding-top:8px; border-top:1px solid rgba(176,138,60,.25); font-family:"Cormorant Garamond","Georgia",serif; letter-spacing:2px; color:var(--gold-dark); }
+@media print {
+  .q-main { display:grid !important; grid-template-columns:1fr 1fr !important; gap:8px 10px !important; }
+  .q-main > .q-section:nth-child(1), .q-main > .q-section:nth-child(2) { grid-column:1 / -1 !important; }
+  .q-main > .q-section:nth-child(1) .q-section-body { display:grid !important; grid-template-columns:1fr 1fr !important; }
+  .q-doc-title { margin:4px 0 12px !important; padding:9px 0 10px !important; }
+  .q-kicker { font-size:8px !important; }
+  .q-brand { margin-bottom:2px !important; padding-bottom:5px !important; }
+  .q-signatures { margin-top:6px !important; padding-top:9px !important; }
+  .q-footer { margin-top:8px !important; }
+}
 </style>
 </head>
 <body>
@@ -334,7 +377,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
           </select>
         </div>
 
-        <div><label>מחיר לראש לפני מע"מ (₪)</label><input type="number" id="f-base" value="390" min="0" oninput="calcPrice()"/></div>
+        <div><label>מחיר לראש אחרי מע"מ (₪)</label><input type="number" id="f-base" value="390" min="0" oninput="calcPrice()"/></div>
 
         <div class="row2">
           <div><label>הנחה ראשונה (%)</label><input type="number" id="f-d1" value="0" min="0" max="100" placeholder="0" oninput="calcPrice()"/></div>
@@ -368,7 +411,7 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
         <!-- סיכום מחיר פנימי -->
         <div class="price-summary">
-          <div class="row"><span>מחיר לראש לפני מע"מ</span><strong id="ps-base">—</strong></div>
+          <div class="row"><span>מחיר לראש אחרי מע"מ</span><strong id="ps-base">—</strong></div>
           <div class="row" id="ps-disc-row" style="display:none"><span id="ps-disc-label">—</span><strong id="ps-disc">—</strong></div>
           <div class="row"><span>סכום</span><strong id="ps-subtotal">—</strong></div>
           <div class="row" id="ps-vat-row" style="display:flex"><span>מע"מ</span><strong id="ps-vat">—</strong></div>
@@ -603,44 +646,45 @@ const MENU_DB = {
     { name:'סלט חסות והדרים', desc:'מיקס חסות טריות, בצל סגול, תפוח סמיט פריך, פקאן קלוי ורוטב ויניגרט הדרים.', checked:false },
     { name:'חציל בלאדי עם טחינה', desc:'חציל על האש עם טחינה גולמית ושמן זית.', checked:true },
     { name:"קרפצ'יו סלק", desc:'פרוסות סלק דקיקות עם רוטב בלסמי מצומצם.', checked:false },
+    { name:'חומוס הבית בעבודת יד', desc:'חומוס חלק וקטיפתי בעבודת יד, מוגש עם שמן זית ונגיעה מדויקת של תיבול.', checked:false },
     { name:'טרטר פילה בקר', desc:"פרוסות דקות של פילה בקר נא, מתובלות בשמן זית, רוטב בלסמי וצ'ימיצ'ורי.", checked:false },
     { name:'תפוחי אדמה ובטטה אסאדורו', desc:'תפוחי אדמה ובטטה צלויים במדורה, רכים מבפנים ופריכים מבחוץ.', checked:true },
-    { name:'סלט ירוקים ASADORO', desc:'כוסברה, פטרוזיליה, נענע וסלרי, בשילוב קשיו, פקאן, חמוציות ורוטב רימונים.', checked:true },
+    { name:'סלט ירוקים ASADORO', desc:'כוסברה, פטרוזיליה, נענע וסלרי, בשילוב קשיו, פקאן, חמוציות ורוטב הבית.', checked:true },
     { name:'סלט אסאדורו', desc:'חסה, עגבניות שרי, גמבות, פטריות ובצל סגול, מתובלים בלימון ושמן זית.', checked:true },
-    { name:'חומוס הבית', desc:'חומוס עבודת יד בעשייה ידנית, עשיר ואגדי.', checked:false },
   ],
   starters: [
-    { name:'עראיס 5 נתחים – ASADORO', desc:'פיתה קריספית ממולאת בתערובת אנטריקוט, אסאדו, אונטריב, צלעות ושומן פיקניה – מוגשת ברבעים עם טחינה.', checked:true },
+    { name:'עראיס 5 נתחים – ASADORO', desc:'פיתה קריספית ממולאת בתערובת ייחודית של אנטריקוט, אסאדו, אונטריב, צלעות ושומן פיקניה – מוגשת ברבעים עם טחינה.', checked:true },
     { name:'המבורגר אסאדורו', desc:'קציצת אנטריקוט ושומן פיקניה בעבודת יד, בלחמניית בריוש ובחסה לאליק – מוגש בחצאים.', checked:true },
-    { name:'סלצ׳צ׳ה', desc:'נקניקייה איטלקית בעבודת יד, חריפפרפה ומלאת טעם.', checked:true },
-    { name:'באן בריוש אסאדו מעושן', desc:'אסאדו מעושן 6 שעות, מוגש בתוך באן בריוש פתוח עם ריבת שרי.', checked:true },
-    { name:'סטייק פרגית אסאדורו', desc:'סטייק פרגית עסיסי במרינדת ראב ASADORO – תערובת 15 תבלינים ארומטיים, עם חסה קיסר וחצאי פרנות.', checked:false },
+    { name:'אונטריב מפורק – ASADORO', desc:'נתח בקר רך ועסיסי מאזור הצוואר, מעושן ומבושל במיצים במשך 6 שעות עד פירוק מלא, מוגש בתוך באן בריוש פתוח עם ריבת שרי.', checked:false },
+    { name:"סלצ'צ'ה – ASADORO", desc:'נקניקייה איטלקית בעבודת יד, עשירה בטעם, עם תיבול מדויק וחריפות מאוזנת.', checked:true },
+    { name:'באן בריוש אסאדו מעושן', desc:'לחם בריוש חם ופריך עם אסאדו מעושן, ריבת שרי, בצל מקורמל ושמן זית.', checked:true },
+    { name:'סטייק פרגית ASADORO', desc:'סטייק פרגית עסיסי במרינדת 18 תבלינים, דבש ושמן זית, מוגש ברבעי בגט מחמצת וחסה לאליק.', checked:false },
   ],
   mains: [
     { name:'Ribeye – ASADORO', desc:'אנטריקוט מבית Devesa, מאזור הצלעות (6–12), בעל מרבלינג עשיר וטעם עמוק במיוחד.', checked:true },
     { name:'Picanha – ASADORO', desc:'נתח פיקניה מחלק הירך העליון, עם שכבת שומן טבעית המעניקה טעם עשיר ומרקם עסיסי.', checked:true },
-    { name:'New York Steak – ASADORO', desc:'סינטה פרימיום, רזה ועדינה, בטעם בשרי מודגש ונקי.', checked:true },
+    { name:'New York Steak – ASADORO', desc:'סינטה פרימיום עם שומן משויש מאוזן, מרקם עדין וטעם בשרי מודגש ונקי.', checked:true },
     { name:'Denver Cut', desc:'נתח אמריקאי קלאסי מהכתף העליונה, בעל מרבלינג מרשים וטעם עמוק.', checked:true },
     { name:'Tomahawk – Prime Rib', desc:'סטייק פריים ריב ענק על העצם, בעל שיוש עמוק וטעם עשיר במיוחד.', checked:false },
-    { name:'Filet Mignon (Calf)', desc:'פילה מעגל צעיר, רך ועדין, בעל טעם נקי ומרקם אלגנטי יוצא דופן.', checked:false },
+    { name:'Filet Mignon (Calf)', desc:'פילה מעגל צעיר, רך ועדין משמעותית מפילה בקר בוגר, בעל טעם נקי ומרקם אלגנטי יוצא דופן.', checked:false },
     { name:'סוכריות הבית – ASADORO', desc:'פילה עגלה מגולגל עם שומן פרה, צרוב על האש ומוגש עם פיסטוק מעל.', checked:false },
     { name:'Lamb Chops', desc:'צלעות טלה איכותיות בעשייה מדויקת, בעלות טעם עשיר ומרקם רך.', checked:false },
-    { name:"Butcher's Cut", desc:'נתח מאזור הכתף, בעל טעם עמוק ומרקם עסיסי – מהנתחים שהקצבים שמרו לעצמם.', checked:false },
-    { name:'כבד אווז (+35 ₪ לסועד)', desc:'מגיע על ברוסקטה ריבת בצל ופילה עגלה.', checked:false },
+    { name:'Butcher’s Cut', desc:'נתח מאזור הכתף, בעל טעם עמוק ומרקם עסיסי – מהנתחים שהקצבים שמרו לעצמם בזכות עומק הטעמים הייחודי שלו.', checked:false },
+    { name:'כבד אווז (+35 ₪ לסועד)', desc:'מגיע על ברוסקטה עם ריבת בצל ועם פילה עגלה – בתוספת 35 ₪ לסועד.', checked:false },
   ],
   desserts: [
     { name:'פלטות פירות מעוצבות של אסאדורו', desc:'פלטות פירות טריים ומעוצבים, בעיצוב ייחודי ומרהיב – נמכרות בנפרד.', checked:false },
   ],
   terms: [
-    { name:'מקדמה: 15% מסך העסקה בעת סגירת האירוע, לשריון התאריך.', desc:'', checked:true },
-    { name:'יתרה: יתרת התשלום תשולם במזומן ביום האירוע.', desc:'', checked:true },
-    { name:'ביטול: עד 48 שעות לפני האירוע – החזר מלא של המקדמה.', desc:'', checked:true },
+    { name:'מקדמה: בתיאום מול ASADORO בעת סגירת האירוע, לשריון התאריך.', desc:'', checked:true },
+    { name:'יתרה: יתרת התשלום תשולם ביום האירוע.', desc:'', checked:true },
+    { name:'ביטול: בתיאום מול ASADORO.', desc:'', checked:true },
     { name:'שינוי כמות: יש לעדכן כמות סופית עד 48 שעות לפני האירוע.', desc:'', checked:true },
-    { name:'השירות אינו כולל טיפ לצוות – אין חובה.', desc:'', checked:true },
+    { name:'השירות אינו כולל טיפ לצוות – בהתאם לשביעות רצון הלקוח, ואין חובה מראש.', desc:'', checked:true },
   ]
 };
 
-const TRACK_PRICES = { Classic:360, Fuego:390, Carnivore:420, custom:null };
+const TRACK_PRICES = { Classic:285, Fuego:310, Carnivore:350, custom:null };
 const EXTRA_ITEMS = {
   seasonalFruits: {
     name:'בוצרים פירות העונה',
@@ -648,15 +692,15 @@ const EXTRA_ITEMS = {
     checked:true
   },
   houseBruschetta: {
-    name:'ברוסקטה הבית עם ריבת בצל, כבד אווז ופילה עגלה',
-    desc:'ברוסקטה פריכה עם ריבת בצל מקורמלת, כבד אווז צרוב ופילה עגלה.',
+    name:'כבד אווז על ברוסקטה עם ריבת בצל ופילה עגלה',
+    desc:'כבד אווז המוגש על ברוסקטה עם ריבת בצל ועם פילה עגלה.',
     checked:true
   }
 };
 const TRACK_DEFAULTS = {
-  Classic:   { salads:[1,4,5,6], starters:[0,1,2], mains:[0,1,2] },
-  Fuego:     { salads:[0,1,4,5,6], starters:[0,1,2,3], mains:[0,1,2,3] },
-  Carnivore: { salads:[0,1,2,3,4,5,6,7], starters:[0,1,2,3,4], mains:[0,1,2,3,4,5,6,7,8] },
+  Classic:   { salads:[1,5,6,7], starters:[0,1,3], mains:[0,1,2] },
+  Fuego:     { salads:[0,1,2,3,4,5,6,7], starters:[0,1,3,4], mains:[0,1,2,3] },
+  Carnivore: { salads:[1,5,6,7], starters:[0,1,2,3,4], mains:[0,1,2,3,4,5,6] },
   custom: null
 };
 
@@ -822,16 +866,19 @@ function calcPrice() {
   const bruschettaPrice = parseFloat(document.getElementById('f-house-bruschetta-price').value) || 0;
 
   const discountFactor = (1 - d1 / 100) * (1 - d2 / 100);
-  const discountedNetPerHead = grossPerHead * discountFactor;
+  const discountedGrossPerHead = grossPerHead * discountFactor;
+  const netPerHead = vatEnabled && vatPct > 0 ? discountedGrossPerHead / (1 + vatPct / 100) : discountedGrossPerHead;
+  const vatPerHead = vatEnabled && vatPct > 0 ? discountedGrossPerHead - netPerHead : 0;
+
   const extrasTotal = (fullTableChecked && fullTableMode === 'paid' ? fullTablePrice : 0)
                     + (seasonalAdded && seasonalMode === 'paid' ? seasonalPrice : 0)
                     + (bruschettaAdded && bruschettaMode === 'paid' ? bruschettaPrice : 0);
 
-  const subtotalBeforeVat = Math.round((discountedNetPerHead * guests) + extrasTotal);
+  const subtotalBeforeVat = Math.round((netPerHead * guests) + extrasTotal);
   const vatAmount = vatEnabled && vatPct > 0 ? Math.round(subtotalBeforeVat * (vatPct / 100)) : 0;
   const total = subtotalBeforeVat + vatAmount;
 
-  document.getElementById('ps-base').textContent = formatShekel(discountedNetPerHead);
+  document.getElementById('ps-base').textContent = formatShekel(discountedGrossPerHead);
   document.getElementById('ps-disc-row').style.display = 'none';
   document.getElementById('ps-disc-label').textContent = '—';
   document.getElementById('ps-disc').textContent = '—';
@@ -849,7 +896,7 @@ function calcPrice() {
 
   const modeLabel = {none:'ללא',down:'▼ שקל',up:'▲ שקל',down10:'▼ ×10',up10:'▲ ×10',nearest:'~'};
   document.getElementById('round-result').innerHTML =
-    `לראש לפני מע"מ: <strong>${formatShekel(discountedNetPerHead)}</strong> | סכום: ${formatShekel(subtotalBeforeVat)} | מע"מ: ${formatShekel(vatAmount)} | סה"כ: ${formatShekel(total)} (${modeLabel[roundMode]||roundMode})`;
+    `לראש אחרי מע"מ: <strong>${formatShekel(discountedGrossPerHead)}</strong> | סכום: ${formatShekel(subtotalBeforeVat)} | מע"מ: ${formatShekel(vatAmount)} | סה"כ: ${formatShekel(total)} (${modeLabel[roundMode]||roundMode})`;
 
   liveUpdate();
 }
@@ -911,14 +958,16 @@ function generateQuote() {
   const bruschettaPrice = parseFloat(document.getElementById('f-house-bruschetta-price').value)||0;
 
   const discountFactor = (1-d1/100)*(1-d2/100);
-  const discountedNetPerHead = base * discountFactor;
-  const grossTotal = discountedNetPerHead * guests;
-  const finalPer = doRound(discountedNetPerHead);
+  const discountedGrossPerHead = base * discountFactor;
+  const grossTotal = discountedGrossPerHead * guests;
+  const netPerHead = vatEnabled && vatPct > 0 ? discountedGrossPerHead / (1 + (vatPct / 100)) : discountedGrossPerHead;
+  const vatPerHead = vatEnabled && vatPct > 0 ? discountedGrossPerHead - netPerHead : 0;
+  const finalPer = doRound(discountedGrossPerHead);
 
   const extrasTotal = (fullTableChecked && fullTableMode === 'paid' ? fullTablePrice : 0)
                     + (seasonalAdded && seasonalMode === 'paid' ? seasonalPrice : 0)
                     + (bruschettaAdded && bruschettaMode === 'paid' ? bruschettaPrice : 0);
-  const subtotalBeforeVat = (discountedNetPerHead * guests) + extrasTotal;
+  const subtotalBeforeVat = vatEnabled && vatPct > 0 ? (netPerHead * guests) + extrasTotal : (discountedGrossPerHead * guests) + extrasTotal;
   const vatAmount = vatEnabled && vatPct > 0 ? whole(subtotalBeforeVat * (vatPct / 100)) : 0;
   const total = subtotalBeforeVat + vatAmount;
 
@@ -927,15 +976,15 @@ function generateQuote() {
 
   let priceHtml = `<div class="price-box">`;
   priceHtml += `<div class="price-card"><strong>מסלול:</strong> ${trackName}</div>`;
-  priceHtml += `<div class="price-card"><strong>מחיר ליחידה:</strong> ${whole(base).toLocaleString('he-IL')} ₪</div>`;
+  priceHtml += `<div class="price-card"><strong>מחיר לראש:</strong> ${whole(base).toLocaleString('he-IL')} ₪</div>`;
   if (d1>0||d2>0) {
     const discLabel = [d1>0?d1+'%':'', d2>0?d2+'%':''].filter(Boolean).join(' + ');
-    priceHtml += `<div class="price-card"><strong>אחרי הנחה (${discLabel}):</strong> ${whole(discountedNetPerHead).toLocaleString('he-IL')} ₪</div>`;
+    priceHtml += `<div class="price-card"><strong>אחרי הנחה (${discLabel}):</strong> ${whole(discountedGrossPerHead).toLocaleString('he-IL')} ₪</div>`;
   }
   priceHtml += `</div>`;
   priceHtml += `<div class="price-box">
     <div class="price-card"><strong>כמות:</strong> ${guests} סועדים</div>
-    <div class="price-card"><strong>מחיר לראש לפני מע"מ:</strong> ${whole(finalPer).toLocaleString('he-IL')} ₪</div>
+    <div class="price-card"><strong>מחיר לראש אחרי מע"מ:</strong> ${whole(finalPer).toLocaleString('he-IL')} ₪</div>
   </div>`;
   if (vatEnabled && vatPct > 0) {
     priceHtml += `<div class="price-box">
@@ -970,7 +1019,7 @@ function generateQuote() {
   <div class="quote-page">
     <div class="q-top-accent"></div>
     <div class="q-brand"><div class="q-brand-mark">ASADORO</div><div class="q-brand-sub">FIRE • MEAT • EXPERIENCE</div></div>
-    <div class="q-doc-title"><h1>הצעת מחיר לאירוע</h1><p>חוויית אירוח מוקפדת בהתאמה אישית</p></div>
+    <div class="q-doc-title"><div class="q-kicker">ASADORO PRIVATE EVENTS</div><h1>הסכם שירות והצעת מחיר</h1><p>אירוח מדויק. חומרי גלם מעולים. חוויית אש בלתי נשכחת.</p></div>
     <div class="q-main" style="display:block;">
       <div class="q-section">
         <div class="q-section-title">פרטי האירוע</div>
@@ -1181,21 +1230,22 @@ function generateBoth() {
     const bruschettaPrice = parseFloat(document.getElementById('f-house-bruschetta-price').value)||0;
 
     const discountFactor = (1-d1/100)*(1-d2/100);
-    const discountedNetPerHead = base * discountFactor;
-    const finalPer = doRound(discountedNetPerHead);
+    const discountedGrossPerHead = base * discountFactor;
+    const netPerHead = vatEnabled && vatPct > 0 ? discountedGrossPerHead / (1 + (vatPct / 100)) : discountedGrossPerHead;
+    const finalPer = doRound(discountedGrossPerHead);
     const extrasTotal = (fullTableChecked && fullTableMode === 'paid' ? fullTablePrice : 0)
       + (seasonalAdded && seasonalMode === 'paid' ? seasonalPrice : 0)
       + (bruschettaAdded && bruschettaMode === 'paid' ? bruschettaPrice : 0);
-    const subtotalBeforeVat = (discountedNetPerHead * guests) + extrasTotal;
+    const subtotalBeforeVat = vatEnabled && vatPct > 0 ? (netPerHead * guests) + extrasTotal : (discountedGrossPerHead * guests) + extrasTotal;
     const vatAmount = vatEnabled && vatPct > 0 ? whole(subtotalBeforeVat * (vatPct / 100)) : 0;
     const total = subtotalBeforeVat + vatAmount;
     const trackNames = { Classic:'ASADORO Classic', Fuego:'ASADORO Fuego', Carnivore:'ASADORO Carnivore', custom:'מותאם אישית' };
     const trackName = trackNames[track]||track;
 
-    let priceHtml = `<div class="price-box"><div class="price-card"><strong>מסלול:</strong> ${trackName}</div><div class="price-card"><strong>מחיר ליחידה:</strong> ${whole(base).toLocaleString('he-IL')} ₪</div></div>`;
+    let priceHtml = `<div class="price-box"><div class="price-card"><strong>מסלול:</strong> ${trackName}</div><div class="price-card"><strong>מחיר לראש:</strong> ${whole(base).toLocaleString('he-IL')} ₪</div></div>`;
     if (d1>0||d2>0) {
       const discLabel = [d1>0?d1+'%':'', d2>0?d2+'%':''].filter(Boolean).join(' + ');
-      priceHtml += `<div class="price-card"><strong>אחרי הנחה (${discLabel}):</strong> ${whole(discountedNetPerHead).toLocaleString('he-IL')} ₪</div>`;
+      priceHtml += `<div class="price-card"><strong>אחרי הנחה (${discLabel}):</strong> ${whole(discountedGrossPerHead).toLocaleString('he-IL')} ₪</div>`;
     }
     priceHtml += `<div class="price-box"><div class="price-card"><strong>כמות:</strong> ${guests} סועדים</div></div>`;
     if (vatEnabled && vatPct > 0) {
@@ -1218,7 +1268,7 @@ function generateBoth() {
       <div class="quote-page">
         <div class="q-top-accent"></div>
         <div class="q-brand"><div class="q-brand-mark">ASADORO</div><div class="q-brand-sub">FIRE • MEAT • EXPERIENCE</div></div>
-        <div class="q-doc-title"><h1>הצעת מחיר לאירוע</h1><p>חוויית אירוח מוקפדת בהתאמה אישית</p></div>
+        <div class="q-doc-title"><div class="q-kicker">ASADORO PRIVATE EVENTS</div><h1>הסכם שירות והצעת מחיר</h1><p>אירוח מדויק. חומרי גלם מעולים. חוויית אש בלתי נשכחת.</p></div>
         <div class="q-main" style="display:block;">
           <div class="q-section"><div class="q-section-title">פרטי האירוע</div><div class="q-section-body"><p><b>שם הלקוח:</b> ${client}</p><p><b>מיקום האירוע:</b> ${location}</p><p><b>תאריך האירוע:</b> ${date}</p><p><b>כמות סועדים:</b> כ-${guests} איש</p><p><b>מסלול:</b> ${trackName}</p></div></div>
           <div class="q-section"><div class="q-section-title">עלות האירוע</div><div class="q-section-body">${priceHtml}</div></div>
