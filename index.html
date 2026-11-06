@@ -334,11 +334,22 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
           </select>
         </div>
 
-        <div><label>מחיר בסיס לסועד (₪)</label><input type="number" id="f-base" value="390" min="0" oninput="calcPrice()"/></div>
+        <div><label>מחיר לראש לפני מע"מ (₪)</label><input type="number" id="f-base" value="390" min="0" oninput="calcPrice()"/></div>
 
         <div class="row2">
           <div><label>הנחה ראשונה (%)</label><input type="number" id="f-d1" value="0" min="0" max="100" placeholder="0" oninput="calcPrice()"/></div>
           <div><label>הנחה שנייה (%)</label><input type="number" id="f-d2" value="0" min="0" max="100" placeholder="0" oninput="calcPrice()"/></div>
+        </div>
+
+        <div class="row2">
+          <div>
+            <label>הוספת מע"מ</label>
+            <select id="f-vat-enabled" onchange="calcPrice()">
+              <option value="0">לא</option>
+              <option value="1" selected>כן</option>
+            </select>
+          </div>
+          <div><label>שיעור מע"מ (%)</label><input type="number" id="f-vat" value="17" min="0" max="100" oninput="calcPrice()"/></div>
         </div>
 
         <!-- עיגול – כלי פנימי בלבד, לא מוצג ללקוח -->
@@ -357,12 +368,13 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
 
         <!-- סיכום מחיר פנימי -->
         <div class="price-summary">
-          <div class="row"><span>מחיר בסיס לסועד</span><strong id="ps-base">—</strong></div>
-          <div class="row" id="ps-disc-row" style="display:none"><span id="ps-disc-label">לאחר הנחה</span><strong id="ps-disc">—</strong></div>
-          <div class="row"><span>מחיר סופי לסועד (מוצג ללקוח)</span><strong id="ps-final">—</strong></div>
-          <div class="row" id="ps-extra-row" style="display:none"><span>תוספות קבועות</span><strong id="ps-extra">—</strong></div>
+          <div class="row"><span>מחיר לראש לפני מע"מ</span><strong id="ps-base">—</strong></div>
+          <div class="row" id="ps-disc-row" style="display:none"><span id="ps-disc-label">—</span><strong id="ps-disc">—</strong></div>
+          <div class="row"><span>סכום</span><strong id="ps-subtotal">—</strong></div>
+          <div class="row" id="ps-vat-row" style="display:flex"><span>מע"מ</span><strong id="ps-vat">—</strong></div>
+          <div class="row" id="ps-extra-row" style="display:none"><span>תוספות</span><strong id="ps-extra">—</strong></div>
           <div class="sep"></div>
-          <div class="total-row"><span>סה״כ לאירוע</span><span id="ps-total">—</span></div>
+          <div class="total-row"><span>סה״כ</span><span id="ps-total">—</span></div>
         </div>
 
         <div class="card">
@@ -435,19 +447,35 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
         </div>
         <div class="tab-content active" id="tab-salads">
           <div class="items-list" id="list-salads"></div>
-          <div class="add-item-row"><input type="text" id="add-salads" placeholder="הוסף סלט חדש..."/><button class="btn-add" onclick="addCustomItem('salads')">+ הוסף</button></div>
+          <div class="add-item-row">
+            <input type="text" id="add-salads" placeholder="שם הסלט"/>
+            <input type="text" id="add-salads-desc" placeholder="תיאור (אופציונלי)"/>
+            <button class="btn-add" onclick="addCustomItem('salads')">+ הוסף</button>
+          </div>
         </div>
         <div class="tab-content" id="tab-starters">
           <div class="items-list" id="list-starters"></div>
-          <div class="add-item-row"><input type="text" id="add-starters" placeholder="הוסף מנת פתיחה..."/><button class="btn-add" onclick="addCustomItem('starters')">+ הוסף</button></div>
+          <div class="add-item-row">
+            <input type="text" id="add-starters" placeholder="שם המנה"/>
+            <input type="text" id="add-starters-desc" placeholder="תיאור (אופציונלי)"/>
+            <button class="btn-add" onclick="addCustomItem('starters')">+ הוסף</button>
+          </div>
         </div>
         <div class="tab-content" id="tab-mains">
           <div class="items-list" id="list-mains"></div>
-          <div class="add-item-row"><input type="text" id="add-mains" placeholder="הוסף מנה עיקרית..."/><button class="btn-add" onclick="addCustomItem('mains')">+ הוסף</button></div>
+          <div class="add-item-row">
+            <input type="text" id="add-mains" placeholder="שם המנה"/>
+            <input type="text" id="add-mains-desc" placeholder="תיאור (אופציונלי)"/>
+            <button class="btn-add" onclick="addCustomItem('mains')">+ הוסף</button>
+          </div>
         </div>
         <div class="tab-content" id="tab-desserts">
           <div class="items-list" id="list-desserts"></div>
-          <div class="add-item-row"><input type="text" id="add-desserts" placeholder="הוסף קינוח..."/><button class="btn-add" onclick="addCustomItem('desserts')">+ הוסף</button></div>
+          <div class="add-item-row">
+            <input type="text" id="add-desserts" placeholder="שם הקינוח"/>
+            <input type="text" id="add-desserts-desc" placeholder="תיאור (אופציונלי)"/>
+            <button class="btn-add" onclick="addCustomItem('desserts')">+ הוסף</button>
+          </div>
         </div>
       </div>
     </div>
@@ -560,13 +588,12 @@ var QRCode;!function(){function a(a){this.mode=c.MODE_8BIT_BYTE,this.data=a,this
       </div>
     </div>
 
-    <button class="btn-generate" onclick="generateQuote()">📄 צור הצעת מחיר</button>
-    <button class="btn-generate btn-menu" onclick="generateMenu()">🍽️ צור תפריט שולחן</button>
+    <button class="btn-generate btn-both" onclick="generateBoth()">📄 צור הצעת מחיר + תפריט</button>
     <button class="btn-print" onclick="window.print()">🖨️ הדפס / שמור PDF</button>
   </div>
 
   <div id="preview-area">
-    <div class="preview-hint">← מלא פרטים ולחץ "צור הצעת מחיר" או "צור תפריט שולחן"</div>
+    <div class="preview-hint">← מלא פרטים ולחץ "צור הצעת מחיר + תפריט"</div>
   </div>
 </div>
 
@@ -580,13 +607,13 @@ const MENU_DB = {
     { name:'תפוחי אדמה ובטטה אסאדורו', desc:'תפוחי אדמה ובטטה צלויים במדורה, רכים מבפנים ופריכים מבחוץ.', checked:true },
     { name:'סלט ירוקים ASADORO', desc:'כוסברה, פטרוזיליה, נענע וסלרי, בשילוב קשיו, פקאן, חמוציות ורוטב רימונים.', checked:true },
     { name:'סלט אסאדורו', desc:'חסה, עגבניות שרי, גמבות, פטריות ובצל סגול, מתובלים בלימון ושמן זית.', checked:true },
-    { name:'חומוס הבית', desc:'חומוס עבודת יד.', checked:false },
+    { name:'חומוס הבית', desc:'חומוס עבודת יד בעשייה ידנית, עשיר ואגדי.', checked:false },
   ],
   starters: [
     { name:'עראיס 5 נתחים – ASADORO', desc:'פיתה קריספית ממולאת בתערובת אנטריקוט, אסאדו, אונטריב, צלעות ושומן פיקניה – מוגשת ברבעים עם טחינה.', checked:true },
     { name:'המבורגר אסאדורו', desc:'קציצת אנטריקוט ושומן פיקניה בעבודת יד, בלחמניית בריוש ובחסה לאליק – מוגש בחצאים.', checked:true },
-    { name:'נקניקיית סנסיצה איטלקית', desc:'נקניקייה דרום-איטלקית בעבודת יד, חרפרפה ומלאת טעם.', checked:true },
-    { name:'קרואסון אסאדורו', desc:'אסאדו מעושן 12 שעות, מוגש בתוך קרואסון חם ורך.', checked:true },
+    { name:'סלצ׳צ׳ה', desc:'נקניקייה איטלקית בעבודת יד, חריפפרפה ומלאת טעם.', checked:true },
+    { name:'באן בריוש אסאדו מעושן', desc:'אסאדו מעושן 6 שעות, מוגש בתוך באן בריוש פתוח עם ריבת שרי.', checked:true },
     { name:'סטייק פרגית אסאדורו', desc:'סטייק פרגית עסיסי במרינדת ראב ASADORO – תערובת 15 תבלינים ארומטיים, עם חסה קיסר וחצאי פרנות.', checked:false },
   ],
   mains: [
@@ -599,7 +626,7 @@ const MENU_DB = {
     { name:'סוכריות הבית – ASADORO', desc:'פילה עגלה מגולגל עם שומן פרה, צרוב על האש ומוגש עם פיסטוק מעל.', checked:false },
     { name:'Lamb Chops', desc:'צלעות טלה איכותיות בעשייה מדויקת, בעלות טעם עשיר ומרקם רך.', checked:false },
     { name:"Butcher's Cut", desc:'נתח מאזור הכתף, בעל טעם עמוק ומרקם עסיסי – מהנתחים שהקצבים שמרו לעצמם.', checked:false },
-    { name:'Foie Gras (+25 ₪ לסועד)', desc:"כבד אווז פרימיום מבית Progres, סוג א', צרוב בעדינות – בתוספת 25 ₪ לסועד.", checked:false },
+    { name:'כבד אווז (+35 ₪ לסועד)', desc:'מגיע על ברוסקטה ריבת בצל ופילה עגלה.', checked:false },
   ],
   desserts: [
     { name:'פלטות פירות מעוצבות של אסאדורו', desc:'פלטות פירות טריים ומעוצבים, בעיצוב ייחודי ומרהיב – נמכרות בנפרד.', checked:false },
@@ -621,8 +648,8 @@ const EXTRA_ITEMS = {
     checked:true
   },
   houseBruschetta: {
-    name:'ברוסקטה ביתית קלויה, ריבת בצל מקורמלת, כבד אווז צרוב וסוכריות הבית',
-    desc:'ברוסקטה פריכה עם תוספת כבד אווז צרוב, ריבת בצל מקורמלת וקינוח ביתי מתוק.',
+    name:'ברוסקטה הבית עם ריבת בצל, כבד אווז ופילה עגלה',
+    desc:'ברוסקטה פריכה עם ריבת בצל מקורמלת, כבד אווז צרוב ופילה עגלה.',
     checked:true
   }
 };
@@ -645,7 +672,12 @@ document.addEventListener('DOMContentLoaded', () => {
   applyTrackDefaults('Fuego');
   calcPrice();
   document.querySelectorAll('[id^="add-"]').forEach(inp => {
-    inp.addEventListener('keydown', e => { if(e.key==='Enter') addCustomItem(inp.id.replace('add-','')); });
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        const cat = inp.id.replace('add-', '').replace('-desc', '');
+        addCustomItem(cat);
+      }
+    });
   });
 });
 
@@ -686,9 +718,15 @@ function renderList(cat) {
 
 function addCustomItem(cat) {
   const inp = document.getElementById('add-'+cat);
-  const val = inp.value.trim(); if(!val) return;
-  items[cat].push({ name:val, desc:'', checked:true });
-  inp.value=''; renderList(cat); liveUpdate();
+  const descInp = document.getElementById('add-'+cat+'-desc');
+  const val = inp.value.trim();
+  if (!val) return;
+  const desc = descInp ? descInp.value.trim() : '';
+  items[cat].push({ name:val, desc:desc, checked:true });
+  inp.value='';
+  if (descInp) descInp.value='';
+  renderList(cat);
+  liveUpdate();
 }
 
 function applyTrackDefaults(track) {
@@ -758,47 +796,60 @@ function doRound(val) {
   }
 }
 
+function whole(value) {
+  return Math.round(Number(value) || 0);
+}
+
+function formatShekel(value) {
+  return whole(value).toLocaleString('he-IL') + ' ₪';
+}
+
 function calcPrice() {
-  const base   = parseFloat(document.getElementById('f-base').value)||0;
-  const d1     = parseFloat(document.getElementById('f-d1').value)||0;
-  const d2     = parseFloat(document.getElementById('f-d2').value)||0;
-  const guests = parseInt(document.getElementById('f-guests').value)||0;
+  const grossPerHead = parseFloat(document.getElementById('f-base').value) || 0;
+  const d1 = parseFloat(document.getElementById('f-d1').value) || 0;
+  const d2 = parseFloat(document.getElementById('f-d2').value) || 0;
+  const guests = parseInt(document.getElementById('f-guests').value) || 0;
+  const vatEnabled = document.getElementById('f-vat-enabled').value === '1';
+  const vatPct = parseFloat(document.getElementById('f-vat').value) || 0;
   const fullTableChecked = document.getElementById('f-full-table').checked;
   const fullTableMode = document.getElementById('f-full-table-mode').value;
-  const fullTablePrice = parseFloat(document.getElementById('f-full-table-price').value)||0;
+  const fullTablePrice = parseFloat(document.getElementById('f-full-table-price').value) || 0;
   const seasonalAdded = document.getElementById('seasonal-fruits-fields').classList.contains('active');
   const seasonalMode = document.getElementById('f-seasonal-fruits-mode').value;
-  const seasonalPrice = parseFloat(document.getElementById('f-seasonal-fruits-price').value)||0;
+  const seasonalPrice = parseFloat(document.getElementById('f-seasonal-fruits-price').value) || 0;
   const bruschettaAdded = document.getElementById('house-bruschetta-fields').classList.contains('active');
   const bruschettaMode = document.getElementById('f-house-bruschetta-mode').value;
-  const bruschettaPrice = parseFloat(document.getElementById('f-house-bruschetta-price').value)||0;
+  const bruschettaPrice = parseFloat(document.getElementById('f-house-bruschetta-price').value) || 0;
 
-  const raw     = base * (1-d1/100) * (1-d2/100);
-  const rounded = doRound(raw);
+  const discountFactor = (1 - d1 / 100) * (1 - d2 / 100);
+  const discountedNetPerHead = grossPerHead * discountFactor;
   const extrasTotal = (fullTableChecked && fullTableMode === 'paid' ? fullTablePrice : 0)
                     + (seasonalAdded && seasonalMode === 'paid' ? seasonalPrice : 0)
                     + (bruschettaAdded && bruschettaMode === 'paid' ? bruschettaPrice : 0);
-  const total   = rounded * guests + extrasTotal;
 
-  // update internal summary
-  document.getElementById('ps-base').textContent = base.toLocaleString()+' ₪';
-  const hasDisc = d1>0||d2>0;
-  document.getElementById('ps-disc-row').style.display = hasDisc ? 'flex' : 'none';
-  if (hasDisc) {
-    const discLabel = [d1>0?d1+'%':'', d2>0?d2+'%':''].filter(Boolean).join(' + ');
-    document.getElementById('ps-disc-label').textContent = 'לאחר הנחה ('+discLabel+')';
-    document.getElementById('ps-disc').textContent = raw.toFixed(2)+' ₪';
-  }
+  const subtotalBeforeVat = Math.round((discountedNetPerHead * guests) + extrasTotal);
+  const vatAmount = vatEnabled && vatPct > 0 ? Math.round(subtotalBeforeVat * (vatPct / 100)) : 0;
+  const total = subtotalBeforeVat + vatAmount;
+
+  document.getElementById('ps-base').textContent = formatShekel(discountedNetPerHead);
+  document.getElementById('ps-disc-row').style.display = 'none';
+  document.getElementById('ps-disc-label').textContent = '—';
+  document.getElementById('ps-disc').textContent = '—';
+
+  document.getElementById('ps-subtotal').textContent = formatShekel(subtotalBeforeVat);
+
   const hasExtras = extrasTotal > 0;
   document.getElementById('ps-extra-row').style.display = hasExtras ? 'flex' : 'none';
-  document.getElementById('ps-extra').textContent = extrasTotal.toLocaleString()+' ₪';
-  document.getElementById('ps-final').textContent  = rounded.toLocaleString()+' ₪';
-  document.getElementById('ps-total').textContent  = total.toLocaleString()+' ₪';
+  document.getElementById('ps-extra').textContent = formatShekel(extrasTotal);
 
-  // rounding quick-view
+  const hasVat = vatEnabled && vatPct > 0;
+  document.getElementById('ps-vat-row').style.display = hasVat ? 'flex' : 'none';
+  document.getElementById('ps-vat').textContent = hasVat ? formatShekel(vatAmount) : '—';
+  document.getElementById('ps-total').textContent = formatShekel(total);
+
   const modeLabel = {none:'ללא',down:'▼ שקל',up:'▲ שקל',down10:'▼ ×10',up10:'▲ ×10',nearest:'~'};
   document.getElementById('round-result').innerHTML =
-    `גולמי: ${raw.toFixed(2)} ₪  →  <strong>${rounded.toLocaleString()} ₪</strong> (${modeLabel[roundMode]||roundMode})`;
+    `לראש לפני מע"מ: <strong>${formatShekel(discountedNetPerHead)}</strong> | סכום: ${formatShekel(subtotalBeforeVat)} | מע"מ: ${formatShekel(vatAmount)} | סה"כ: ${formatShekel(total)} (${modeLabel[roundMode]||roundMode})`;
 
   liveUpdate();
 }
@@ -808,14 +859,21 @@ function liveUpdate() {
   clearTimeout(liveTimer);
   liveTimer = setTimeout(() => {
     const pv = document.getElementById('preview-area');
-    if (pv.querySelector('.menu-page')) generateMenu();
-    else if (pv.querySelector('.quote-page')) generateQuote();
+    const hasQuote = !!pv.querySelector('.quote-page');
+    const hasMenu = !!pv.querySelector('.menu-page');
+    if (hasQuote && hasMenu) generateBoth();
+    else if (hasMenu) generateMenu();
+    else if (hasQuote) generateQuote();
   }, 300);
 }
 function menuLive() {
   clearTimeout(liveTimer);
   liveTimer = setTimeout(() => {
-    if (document.getElementById('preview-area').querySelector('.menu-page')) generateMenu();
+    const pv = document.getElementById('preview-area');
+    const hasQuote = !!pv.querySelector('.quote-page');
+    const hasMenu = !!pv.querySelector('.menu-page');
+    if (hasQuote && hasMenu) generateBoth();
+    else if (hasMenu) generateMenu();
   }, 200);
 }
 function onCustomText() {
@@ -840,6 +898,8 @@ function generateQuote() {
     'ההצעה כוללת מסלול מלא, חומרי גלם פרימיום, עבודה מוקפדת וחוויית אירוח ברמה הגבוהה ביותר.';
   const sigL = document.getElementById('f-sig-l').value||'חתימת הלקוח';
   const sigR = document.getElementById('f-sig-r').value||'אופק וגאס – ASADORO';
+  const vatEnabled = document.getElementById('f-vat-enabled').value === '1';
+  const vatPct = parseFloat(document.getElementById('f-vat').value)||0;
   const fullTableChecked = document.getElementById('f-full-table').checked;
   const fullTableMode = document.getElementById('f-full-table-mode').value;
   const fullTablePrice = parseFloat(document.getElementById('f-full-table-price').value)||0;
@@ -850,103 +910,94 @@ function generateQuote() {
   const bruschettaMode = document.getElementById('f-house-bruschetta-mode').value;
   const bruschettaPrice = parseFloat(document.getElementById('f-house-bruschetta-price').value)||0;
 
-  const raw     = base*(1-d1/100)*(1-d2/100);
-  const finalPer = doRound(raw);   // ← מחיר עגול, ללא הצגת תהליך
+  const discountFactor = (1-d1/100)*(1-d2/100);
+  const discountedNetPerHead = base * discountFactor;
+  const grossTotal = discountedNetPerHead * guests;
+  const finalPer = doRound(discountedNetPerHead);
+
   const extrasTotal = (fullTableChecked && fullTableMode === 'paid' ? fullTablePrice : 0)
                     + (seasonalAdded && seasonalMode === 'paid' ? seasonalPrice : 0)
                     + (bruschettaAdded && bruschettaMode === 'paid' ? bruschettaPrice : 0);
-  const total   = finalPer * guests + extrasTotal;
+  const subtotalBeforeVat = (discountedNetPerHead * guests) + extrasTotal;
+  const vatAmount = vatEnabled && vatPct > 0 ? whole(subtotalBeforeVat * (vatPct / 100)) : 0;
+  const total = subtotalBeforeVat + vatAmount;
 
   const trackNames = { Classic:'ASADORO Classic', Fuego:'ASADORO Fuego', Carnivore:'ASADORO Carnivore', custom:'מותאם אישית' };
   const trackName = trackNames[track]||track;
 
-  // ---- מה הלקוח רואה: מחיר בסיס → מחיר סופי (נקי, ללא עיגול גלוי) ----
   let priceHtml = `<div class="price-box">`;
-  priceHtml += `<div class="price-card"><strong>מסלול ${trackName}:</strong> ${base.toLocaleString()} ₪ לסועד</div>`;
+  priceHtml += `<div class="price-card"><strong>מסלול:</strong> ${trackName}</div>`;
+  priceHtml += `<div class="price-card"><strong>מחיר ליחידה:</strong> ${whole(base).toLocaleString('he-IL')} ₪</div>`;
   if (d1>0||d2>0) {
     const discLabel = [d1>0?d1+'%':'', d2>0?d2+'%':''].filter(Boolean).join(' + ');
-    priceHtml += `<div class="price-card"><strong>לאחר הנחה (${discLabel}):</strong> ${finalPer.toLocaleString()} ₪ לסועד</div>`;
+    priceHtml += `<div class="price-card"><strong>אחרי הנחה (${discLabel}):</strong> ${whole(discountedNetPerHead).toLocaleString('he-IL')} ₪</div>`;
   }
   priceHtml += `</div>`;
   priceHtml += `<div class="price-box">
     <div class="price-card"><strong>כמות:</strong> ${guests} סועדים</div>
-    <div class="price-card"><strong>מחיר לסועד:</strong> ${finalPer.toLocaleString()} ₪</div>
+    <div class="price-card"><strong>מחיר לראש לפני מע"מ:</strong> ${whole(finalPer).toLocaleString('he-IL')} ₪</div>
   </div>`;
+  if (vatEnabled && vatPct > 0) {
+    priceHtml += `<div class="price-box">
+      <div class="price-card"><strong>סכום:</strong> ${whole(subtotalBeforeVat).toLocaleString('he-IL')} ₪</div>
+      <div class="price-card"><strong>מע"מ:</strong> ${whole(vatAmount).toLocaleString('he-IL')} ₪</div>
+    </div>`;
+    priceHtml += `<div class="price-box"><div class="price-card"><strong>סה"כ:</strong> ${whole(total).toLocaleString('he-IL')} ₪</div></div>`;
+  }
   if (fullTableChecked || seasonalAdded || bruschettaAdded) {
     const extraLines = [];
     if (fullTableChecked) extraLines.push(fullTableMode === 'paid'
-      ? `עריכת שולחן קומפלט ASADORO: +${fullTablePrice.toLocaleString()} ₪`
+      ? `עריכת שולחן קומפלט ASADORO: +${whole(fullTablePrice).toLocaleString('he-IL')} ₪`
       : 'עריכת שולחן קומפלט ASADORO: על חשבוננו');
     if (seasonalAdded) extraLines.push(seasonalMode === 'paid'
-      ? `בוצרים פירות העונה: +${seasonalPrice.toLocaleString()} ₪`
+      ? `בוצרים פירות העונה: +${whole(seasonalPrice).toLocaleString('he-IL')} ₪`
       : 'בוצרים פירות העונה: כמתנה');
     if (bruschettaAdded) extraLines.push(bruschettaMode === 'paid'
-      ? `ברוסקטה הבית: +${bruschettaPrice.toLocaleString()} ₪`
+      ? `ברוסקטה הבית: +${whole(bruschettaPrice).toLocaleString('he-IL')} ₪`
       : 'ברוסקטה הבית: כמתנה');
     priceHtml += `<p>${extraLines.join(' • ')}</p>`;
   }
   if (extrasTotal > 0) {
-    priceHtml += `<div class="price-box"><div class="price-card"><strong>תוספות קבועות:</strong> ${extrasTotal.toLocaleString()} ₪</div></div>`;
+    priceHtml += `<div class="price-box"><div class="price-card"><strong>תוספות קבועות:</strong> ${whole(extrasTotal).toLocaleString('he-IL')} ₪</div></div>`;
   }
-  priceHtml += `<p class="price-highlight">סה״כ עבור האירוח: ${total.toLocaleString()} ₪</p>`;
+  priceHtml += `<div class="price-box"><div class="price-card"><strong>סכום סופי:</strong> ${whole(total).toLocaleString('he-IL')} ₪</div></div>`;
   if (bonus) priceHtml += `<p>${bonus}</p>`;
   priceHtml += `<p class="q-notes">${priceNotes}</p>`;
 
-  const sel = cat => items[cat].filter(i=>i.checked);
-  const salads   = sel('salads');
-  const starters = sel('starters');
-  const mains    = sel('mains');
-  const desserts = sel('desserts');
-  const terms    = sel('terms');
-
-  let menuHtml = '';
-  if (salads.length)   menuHtml += mkCard('סלטי הבית', salads);
-  if (starters.length) menuHtml += mkCard('מנות בופה', starters);
-  if (mains.length)    menuHtml += mkCard('מנות עיקריות', mains);
-  if (desserts.length) menuHtml += mkCard('קינוחים', desserts);
-
-  const termsHtml = terms.map(t=>`<li>${t.name}</li>`).join('');
+  const termsHtml = items.terms.filter(i => i.checked).map(t => `<li>${t.name}</li>`).join('');
 
   document.getElementById('preview-area').innerHTML = `
   <div class="quote-page">
     <div class="q-top-accent"></div>
     <div class="q-brand"><div class="q-brand-mark">ASADORO</div><div class="q-brand-sub">FIRE • MEAT • EXPERIENCE</div></div>
     <div class="q-doc-title"><h1>הצעת מחיר לאירוע</h1><p>חוויית אירוח מוקפדת בהתאמה אישית</p></div>
-    <div class="q-main">
-      <div>
-        <div class="q-section">
-          <div class="q-section-title">פרטי האירוע</div>
-          <div class="q-section-body">
-            <p><b>שם הלקוח:</b> ${client}</p>
-            <p><b>מיקום האירוע:</b> ${location}</p>
-            <p><b>תאריך האירוע:</b> ${date}</p>
-            <p><b>כמות סועדים:</b> כ-${guests} איש</p>
-            <p><b>מסלול:</b> ${trackName}</p>
-          </div>
-        </div>
-        <div class="q-section">
-          <div class="q-section-title">עלות האירוע</div>
-          <div class="q-section-body">${priceHtml}</div>
-        </div>
-        <div class="q-section">
-          <div class="q-section-title">תנאי הזמנה ותשלום</div>
-          <div class="q-section-body"><ul>${termsHtml}</ul></div>
-        </div>
-        <div class="q-section">
-          <div class="q-section-title">השירות כולל</div>
-          <div class="q-section-body"><ul>
-            <li>הגעה והקמת עמדת עבודה במקום האירוע</li>
-            <li>הכנה וצלייה במקום האירוע</li>
-            <li>הגשה מלאה לאורך האירוע</li>
-            <li>תפעול מלא של קצב ההגשה מטעם ASADORO</li>
-          </ul></div>
+    <div class="q-main" style="display:block;">
+      <div class="q-section">
+        <div class="q-section-title">פרטי האירוע</div>
+        <div class="q-section-body">
+          <p><b>שם הלקוח:</b> ${client}</p>
+          <p><b>מיקום האירוע:</b> ${location}</p>
+          <p><b>תאריך האירוע:</b> ${date}</p>
+          <p><b>כמות סועדים:</b> כ-${guests} איש</p>
+          <p><b>מסלול:</b> ${trackName}</p>
         </div>
       </div>
-      <div>
-        <div class="q-section">
-          <div class="q-section-title">תפריט האירוע</div>
-          <div class="q-section-body"><div class="menu-grid">${menuHtml}</div></div>
-        </div>
+      <div class="q-section">
+        <div class="q-section-title">עלות האירוע</div>
+        <div class="q-section-body">${priceHtml}</div>
+      </div>
+      <div class="q-section">
+        <div class="q-section-title">תנאי הזמנה ותשלום</div>
+        <div class="q-section-body"><ul>${termsHtml}</ul></div>
+      </div>
+      <div class="q-section">
+        <div class="q-section-title">השירות כולל</div>
+        <div class="q-section-body"><ul>
+          <li>הגעה והקמת עמדת עבודה במקום האירוע</li>
+          <li>הכנה וצלייה במקום האירוע</li>
+          <li>הגשה מלאה לאורך האירוע</li>
+          <li>תפעול מלא של קצב ההגשה מטעם ASADORO</li>
+        </ul></div>
       </div>
     </div>
     <div class="q-signatures">
@@ -1073,11 +1124,13 @@ function generateMenu() {
     <div class="m-foot-sub">FIRE • MEAT • EXPERIENCE</div>
   </div>`;
 
-  document.getElementById('preview-area').innerHTML = `
+  const menuMarkup = `
     <div class="menu-page theme-${theme} size-${size}" dir="${dir}">
       <div class="m-frame"></div>
       <div class="m-inner">${head}<div class="m-cats">${cats}</div>${footer}</div>
     </div>`;
+
+  document.getElementById('preview-area').innerHTML = menuMarkup;
 
   /* print setup: page matches the chosen size exactly – no breaks, no clipping */
   document.body.classList.add('menu-mode');
@@ -1098,6 +1151,180 @@ function generateMenu() {
 
   fitMenu(scale);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => fitMenu(scale));
+}
+
+function generateBoth() {
+  const quoteMarkup = (() => {
+    document.body.classList.remove('menu-mode');
+    const client   = document.getElementById('f-client').value  || '—';
+    const location = document.getElementById('f-location').value|| '—';
+    const date     = document.getElementById('f-date').value    || '—';
+    const guests   = parseInt(document.getElementById('f-guests').value)||0;
+    const track    = document.getElementById('f-track').value;
+    const base     = parseFloat(document.getElementById('f-base').value)||0;
+    const d1       = parseFloat(document.getElementById('f-d1').value)||0;
+    const d2       = parseFloat(document.getElementById('f-d2').value)||0;
+    const bonus    = document.getElementById('f-bonus').value.trim();
+    const priceNotes = document.getElementById('f-price-notes').value.trim() || 'ההצעה כוללת מסלול מלא, חומרי גלם פרימיום, עבודה מוקפדת וחוויית אירוח ברמה הגבוהה ביותר.';
+    const sigL = document.getElementById('f-sig-l').value||'חתימת הלקוח';
+    const sigR = document.getElementById('f-sig-r').value||'אופק וגאס – ASADORO';
+    const vatEnabled = document.getElementById('f-vat-enabled').value === '1';
+    const vatPct = parseFloat(document.getElementById('f-vat').value)||0;
+    const fullTableChecked = document.getElementById('f-full-table').checked;
+    const fullTableMode = document.getElementById('f-full-table-mode').value;
+    const fullTablePrice = parseFloat(document.getElementById('f-full-table-price').value)||0;
+    const seasonalAdded = document.getElementById('seasonal-fruits-fields').classList.contains('active');
+    const seasonalMode = document.getElementById('f-seasonal-fruits-mode').value;
+    const seasonalPrice = parseFloat(document.getElementById('f-seasonal-fruits-price').value)||0;
+    const bruschettaAdded = document.getElementById('house-bruschetta-fields').classList.contains('active');
+    const bruschettaMode = document.getElementById('f-house-bruschetta-mode').value;
+    const bruschettaPrice = parseFloat(document.getElementById('f-house-bruschetta-price').value)||0;
+
+    const discountFactor = (1-d1/100)*(1-d2/100);
+    const discountedNetPerHead = base * discountFactor;
+    const finalPer = doRound(discountedNetPerHead);
+    const extrasTotal = (fullTableChecked && fullTableMode === 'paid' ? fullTablePrice : 0)
+      + (seasonalAdded && seasonalMode === 'paid' ? seasonalPrice : 0)
+      + (bruschettaAdded && bruschettaMode === 'paid' ? bruschettaPrice : 0);
+    const subtotalBeforeVat = (discountedNetPerHead * guests) + extrasTotal;
+    const vatAmount = vatEnabled && vatPct > 0 ? whole(subtotalBeforeVat * (vatPct / 100)) : 0;
+    const total = subtotalBeforeVat + vatAmount;
+    const trackNames = { Classic:'ASADORO Classic', Fuego:'ASADORO Fuego', Carnivore:'ASADORO Carnivore', custom:'מותאם אישית' };
+    const trackName = trackNames[track]||track;
+
+    let priceHtml = `<div class="price-box"><div class="price-card"><strong>מסלול:</strong> ${trackName}</div><div class="price-card"><strong>מחיר ליחידה:</strong> ${whole(base).toLocaleString('he-IL')} ₪</div></div>`;
+    if (d1>0||d2>0) {
+      const discLabel = [d1>0?d1+'%':'', d2>0?d2+'%':''].filter(Boolean).join(' + ');
+      priceHtml += `<div class="price-card"><strong>אחרי הנחה (${discLabel}):</strong> ${whole(discountedNetPerHead).toLocaleString('he-IL')} ₪</div>`;
+    }
+    priceHtml += `<div class="price-box"><div class="price-card"><strong>כמות:</strong> ${guests} סועדים</div></div>`;
+    if (vatEnabled && vatPct > 0) {
+      priceHtml += `<div class="price-box"><div class="price-card"><strong>סכום:</strong> ${whole(subtotalBeforeVat).toLocaleString('he-IL')} ₪</div><div class="price-card"><strong>מע"מ:</strong> ${whole(vatAmount).toLocaleString('he-IL')} ₪</div></div><div class="price-box"><div class="price-card"><strong>סה"כ:</strong> ${whole(total).toLocaleString('he-IL')} ₪</div></div>`;
+    }
+    if (fullTableChecked || seasonalAdded || bruschettaAdded) {
+      const extraLines = [];
+      if (fullTableChecked) extraLines.push(fullTableMode === 'paid' ? `עריכת שולחן קומפלט ASADORO: +${whole(fullTablePrice).toLocaleString('he-IL')} ₪` : 'עריכת שולחן קומפלט ASADORO: על חשבוננו');
+      if (seasonalAdded) extraLines.push(seasonalMode === 'paid' ? `בוצרים פירות העונה: +${whole(seasonalPrice).toLocaleString('he-IL')} ₪` : 'בוצרים פירות העונה: כמתנה');
+      if (bruschettaAdded) extraLines.push(bruschettaMode === 'paid' ? `ברוסקטה הבית: +${whole(bruschettaPrice).toLocaleString('he-IL')} ₪` : 'ברוסקטה הבית: כמתנה');
+      priceHtml += `<p>${extraLines.join(' • ')}</p>`;
+    }
+    if (extrasTotal > 0) priceHtml += `<div class="price-box"><div class="price-card"><strong>תוספות קבועות:</strong> ${whole(extrasTotal).toLocaleString('he-IL')} ₪</div></div>`;
+    priceHtml += `<div class="price-box"><div class="price-card"><strong>סכום סופי:</strong> ${whole(total).toLocaleString('he-IL')} ₪</div></div>`;
+    if (bonus) priceHtml += `<p>${bonus}</p>`;
+    priceHtml += `<p class="q-notes">${priceNotes}</p>`;
+
+    const termsHtml = items.terms.filter(i => i.checked).map(t => `<li>${t.name}</li>`).join('');
+    return `
+      <div class="quote-page">
+        <div class="q-top-accent"></div>
+        <div class="q-brand"><div class="q-brand-mark">ASADORO</div><div class="q-brand-sub">FIRE • MEAT • EXPERIENCE</div></div>
+        <div class="q-doc-title"><h1>הצעת מחיר לאירוע</h1><p>חוויית אירוח מוקפדת בהתאמה אישית</p></div>
+        <div class="q-main" style="display:block;">
+          <div class="q-section"><div class="q-section-title">פרטי האירוע</div><div class="q-section-body"><p><b>שם הלקוח:</b> ${client}</p><p><b>מיקום האירוע:</b> ${location}</p><p><b>תאריך האירוע:</b> ${date}</p><p><b>כמות סועדים:</b> כ-${guests} איש</p><p><b>מסלול:</b> ${trackName}</p></div></div>
+          <div class="q-section"><div class="q-section-title">עלות האירוע</div><div class="q-section-body">${priceHtml}</div></div>
+          <div class="q-section"><div class="q-section-title">תנאי הזמנה ותשלום</div><div class="q-section-body"><ul>${termsHtml}</ul></div></div>
+          <div class="q-section"><div class="q-section-title">השירות כולל</div><div class="q-section-body"><ul><li>הגעה והקמת עמדת עבודה במקום האירוע</li><li>הכנה וצלייה במקום האירוע</li><li>הגשה מלאה לאורך האירוע</li><li>תפעול מלא של קצב ההגשה מטעם ASADORO</li></ul></div></div>
+        </div>
+        <div class="q-signatures"><div class="q-sign-box"><div class="q-sign-line"></div>${sigL}</div><div class="q-sign-box"><div class="q-sign-line"></div>${sigR}</div></div>
+        <div class="q-footer">ASADORO • חוויית בשר פרימיום</div>
+      </div>`;
+  })();
+
+  const menuMarkup = (() => {
+    const client  = document.getElementById('f-client').value.trim();
+    const date    = document.getElementById('f-date').value.trim();
+    const track   = document.getElementById('f-track').value;
+    const evType  = document.getElementById('m-event').value;
+    const lang    = document.getElementById('m-lang').value;
+    const size    = document.getElementById('m-size').value;
+    const theme   = document.getElementById('m-theme').value;
+    const showDesc= document.getElementById('m-desc').checked;
+    const qrMode  = document.getElementById('m-qr').value;
+    const qrUrl   = document.getElementById('m-qr-url').value.trim();
+    const customText = document.getElementById('m-custom-text').value.trim();
+    let headerMode = document.getElementById('m-header-mode').value;
+    if (headerMode === 'custom' && !customText) headerMode = 'none';
+    const scale = (parseInt(document.getElementById('m-scale').value) || 100) / 100;
+    const dir = lang === 'en' ? 'ltr' : 'rtl';
+    const primary = k => lang === 'en' ? k.en : k.he;
+
+    let head = `<div class="m-brand">ASADORO</div><div class="m-brand-sub">FIRE • MEAT • EXPERIENCE</div><div class="m-div">${FLAME_SVG}</div>`;
+    if (lang === 'he') head += `<div class="m-menu-word m-menu-word-he">תפריט</div>`;
+    else if (lang === 'en') head += `<div class="m-menu-word">MENU</div>`;
+    else head += `<div class="m-menu-word">MENU</div><div class="m-menu-word-sub">תפריט</div>`;
+
+    if (headerMode === 'custom') {
+      const lines = customText.split('\n').map(l => l.trim()).filter(Boolean);
+      if (lines.length) {
+        head += `<div class="m-custom">${esc(lines[0])}</div>`;
+        lines.slice(1).forEach(l => head += `<div class="m-custom-sub">${esc(l)}</div>`);
+      }
+    } else if (headerMode === 'auto' && client) {
+      if (evType === 'wedding') head += `<div class="m-honor-name big" style="margin-top:1em">${esc(client)}</div>`;
+      else head += `<div class="m-honor">${primary(HONOR)}</div><div class="m-honor-name">${esc(client)}</div>`;
+    }
+
+    const ev = EVENT_TYPES[evType];
+    if (headerMode !== 'custom') {
+      head += `<div class="m-event-title">${primary(ev)}</div>`;
+      if (lang === 'both') head += `<div class="m-event-title-en">${ev.en}</div>`;
+    }
+    if (date) head += `<div class="m-date">${esc(date)}</div>`;
+    const trackNames = { Classic:'ASADORO Classic', Fuego:'ASADORO Fuego', Carnivore:'ASADORO Carnivore' };
+    if (trackNames[track]) head += `<div class="m-track">${trackNames[track]}</div>`;
+    head += `<div class="m-div small">${FLAME_SVG}</div>`;
+
+    let cats = '';
+    ['salads','starters','mains','desserts'].forEach(cat => {
+      const selected = items[cat].filter(i => i.checked);
+      if (!selected.length) return;
+      const T = CAT_TITLES[cat];
+      let block = `<div class="m-cat"><div class="m-cat-title${lang==='en' ? ' m-latin' : ''}">${primary(T)}</div>`;
+      if (lang === 'both') block += `<div class="m-cat-sub">${T.en}</div>`;
+      block += `<div class="m-cat-rule"></div>`;
+      selected.forEach(i => {
+        block += `<div class="m-dish">${esc(cleanDishName(i.name))}`;
+        if (showDesc && i.desc) block += `<div class="m-dish-desc">${esc(i.desc)}</div>`;
+        block += `</div>`;
+      });
+      block += `</div>`;
+      cats += block;
+    });
+
+    let footer = `<div class="m-footer">`;
+    if (qrMode !== 'off' && qrUrl) footer += `<div class="m-qr"><div class="m-qr-box" id="m-qr-target"></div><div class="m-qr-label">${primary(QR_LABELS[qrMode])}</div></div>`;
+    footer += `<div class="m-foot-line">Enjoy The Fire Experience</div><div class="m-foot-brand">ASADORO</div><div class="m-foot-sub">FIRE • MEAT • EXPERIENCE</div></div>`;
+
+    return `<div class="menu-page theme-${theme} size-${size}" dir="${dir}" style="page-break-before:always;"> <div class="m-frame"></div> <div class="m-inner">${head}<div class="m-cats">${cats}</div>${footer}</div></div>`;
+  })();
+
+  document.getElementById('preview-area').innerHTML = quoteMarkup + menuMarkup;
+  document.getElementById('page-style').textContent = '@page { size:A4 portrait; margin:10mm; } .quote-page, .menu-page { page-break-after: always; } .menu-page { page-break-before: always; }';
+
+  const qrTarget = document.getElementById('m-qr-target');
+  if (qrTarget) {
+    const px = { a4p:88, a5p:70, a5l:62, dl:56, sq:60 }[document.getElementById('m-size').value] || 70;
+    if (typeof QRCode !== 'undefined') {
+      new QRCode(qrTarget, { text:document.getElementById('m-qr-url').value.trim(), width:px, height:px, colorDark:'#1a1510', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.M });
+    } else {
+      qrTarget.textContent = document.getElementById('m-qr-url').value.trim();
+      qrTarget.style.cssText += 'font-size:9px;line-height:1.2;max-width:120px;word-break:break-all;padding:6px;';
+    }
+  }
+
+  const scale = (parseInt(document.getElementById('m-scale').value) || 100) / 100;
+  const menuPage = document.querySelector('.menu-page');
+  if (menuPage) {
+    menuPage.querySelector('.m-inner').style.fontSize = '';
+    let px = parseFloat(getComputedStyle(menuPage.querySelector('.m-inner')).fontSize) * scale;
+    menuPage.querySelector('.m-inner').style.fontSize = px + 'px';
+    const min = px * 0.5;
+    let guard = 80;
+    while ((menuPage.querySelector('.m-inner').scrollHeight > menuPage.querySelector('.m-inner').clientHeight + 1) && px > min && guard--) {
+      px -= 0.35;
+      menuPage.querySelector('.m-inner').style.fontSize = px + 'px';
+    }
+  }
 }
 
 /* shrink typography until everything fits on one page – never clip, never break */
